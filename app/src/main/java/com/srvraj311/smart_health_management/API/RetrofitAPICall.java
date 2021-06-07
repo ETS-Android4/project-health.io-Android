@@ -1,0 +1,34 @@
+package com.srvraj311.smart_health_management.API;
+
+import com.srvraj311.smart_health_management.Models.LoginRequest;
+import com.srvraj311.smart_health_management.Models.User;
+
+import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
+
+public interface RetrofitAPICall {
+    // Seperate the main url, http://localhost:8080/
+
+    @GET("client/users/signup/")
+    Call<HashMap<String, String>> getData();
+
+    @POST("client/users/signup/")
+    Call<HashMap<String, String>> signUp(@Body User user);
+
+    @POST("client/users/login/")
+    Call<HashMap<String, String>> login(@Body LoginRequest loginRequest);
+
+    @POST("client/users/resetPassword")
+    Call<HashMap<String, String>> resetPassword(@Body HashMap<String, String> map);
+
+    @POST("client/users/verifyOtp")
+    Call<HashMap<String, String>> verifyOtp(@Body HashMap<String, String> map);
+
+    @POST("client/users/updatePw")
+    Call<HashMap<String, String>> changePw(@Body HashMap<String, String> map);
+}
