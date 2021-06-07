@@ -31,4 +31,7 @@ public interface RetrofitAPICall {
 
     @POST("client/users/updatePw")
     Call<HashMap<String, String>> changePw(@Body HashMap<String, String> map);
+
+    @GET
+    Call<String> getUrl();
 }
