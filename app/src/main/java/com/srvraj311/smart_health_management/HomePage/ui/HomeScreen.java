@@ -1,4 +1,4 @@
-package com.srvraj311.smart_health_management;
+package com.srvraj311.smart_health_management.HomePage.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +18,8 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.srvraj311.smart_health_management.MainActivity;
+import com.srvraj311.smart_health_management.R;
 import com.srvraj311.smart_health_management.databinding.ActivityHomeScreenBinding;
 
 public class HomeScreen extends AppCompatActivity {
@@ -69,13 +71,14 @@ public class HomeScreen extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.action_logout:
-                logout();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.action_logout) {
+            logout();
+            return true;
+        } else if(item.getItemId() == R.id.action_settings){
+            //Settings Here
+        return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     private void logout() {

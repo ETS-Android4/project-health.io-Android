@@ -21,9 +21,10 @@ public class Config {
 
     public static void setUrl(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://raw.githubusercontent.com/srvraj311/project-health.io-Android/master/url.json?token=AO3ZAOLQ5B3YWD6QNRHUXR3AY5XGQ")
+                .baseUrl("https://raw.githubusercontent.com/srvraj311/health.io-API/main/url.json")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
         RetrofitAPICall apiCall = retrofit.create(RetrofitAPICall.class);
         Call<String> call = apiCall.getUrl();
         call.enqueue(new Callback<String>() {

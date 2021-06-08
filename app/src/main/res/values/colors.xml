@@ -11,7 +11,9 @@
     <color name="dark_gray">#66666666</color>
     <color name="dark_green">#186F00</color>
     <color name="light_gray">#DFDFDF</color>
-    <color  name = "blue_link">#0071EA</color>
+    <color name = "blue_link">#0071EA</color>
+    <color name = "card_bg">#EDEDED</color>
+
 
 
 </resources>

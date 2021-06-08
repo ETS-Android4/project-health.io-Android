@@ -17,7 +17,7 @@
         <activity android:name=".LoginSignup.ResetPassword.EnterOTP"></activity>
         <activity android:name=".LoginSignup.ResetPassword.ChangePwd" />
         <activity
-            android:name=".HomeScreen"
+            android:name=".HomePage.ui.HomeScreen"
             android:label="@string/title_activity_home_screen"
             android:theme="@style/Theme.SmartHealthManagement.NoActionBar" /> <!-- Uses android:usesCleartextTraffic="true" Should be disabled in final Build -->
         <activity

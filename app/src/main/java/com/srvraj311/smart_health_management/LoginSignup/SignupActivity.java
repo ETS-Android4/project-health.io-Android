@@ -13,15 +13,13 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.jaredrummler.android.device.DeviceName;
 import com.srvraj311.smart_health_management.API.RetrofitAPICall;
 import com.srvraj311.smart_health_management.Config.Config;
-import com.srvraj311.smart_health_management.HomeScreen;
+import com.srvraj311.smart_health_management.HomePage.ui.HomeScreen;
 import com.srvraj311.smart_health_management.Models.User;
 import com.srvraj311.smart_health_management.R;
 
@@ -29,7 +27,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.Timer;
 import java.util.regex.Pattern;
 
 import retrofit2.Call;

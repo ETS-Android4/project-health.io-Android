@@ -45,4 +45,9 @@
     <string name="enter_new_password">Enter New Password</string>
     <string name="re_enter_your_password">Re-Enter Your Password</string>
     <string name="change_pwd">Change Password</string>
+    <string name="enter_a_location">Enter a Location</string>
+    <string name="search_location">Search Location</string>
+    <string name="hospitals">Hospitals</string>
+    <string name="discover">Discover : </string>
+    <string name="clinics">Clinics</string>
 </resources>

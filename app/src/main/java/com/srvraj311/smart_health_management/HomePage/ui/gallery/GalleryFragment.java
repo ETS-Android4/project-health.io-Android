@@ -1,4 +1,4 @@
-package com.srvraj311.smart_health_management.ui.gallery;
+package com.srvraj311.smart_health_management.HomePage.ui.gallery;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.srvraj311.smart_health_management.R;
 import com.srvraj311.smart_health_management.databinding.FragmentGalleryBinding;
 
 public class GalleryFragment extends Fragment {

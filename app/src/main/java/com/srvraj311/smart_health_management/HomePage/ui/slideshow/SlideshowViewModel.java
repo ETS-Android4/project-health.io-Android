@@ -1,4 +1,4 @@
-package com.srvraj311.smart_health_management.ui.slideshow;
+package com.srvraj311.smart_health_management.HomePage.ui.slideshow;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
