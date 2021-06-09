@@ -1,0 +1,24 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=F0:FD:B9:C8:DD:69:2A:3B:EC:EB:30:2B:70:A2:84:A1:F2:18:A6:63%3Bcom.srvraj311.smart_health_management
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    com.srvraj311.smart_health_management
+
+    SHA-1 certificate fingerprint:
+    F0:FD:B9:C8:DD:69:2A:3B:EC:EB:30:2B:70:A2:84:A1:F2:18:A6:63
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAQ3iygK_2X0zHMNUD-cPgNZWsSXMwLiv4</string>
+</resources>
