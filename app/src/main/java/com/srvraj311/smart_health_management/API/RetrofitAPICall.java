@@ -1,9 +1,13 @@
 package com.srvraj311.smart_health_management.API;
 
+import android.media.session.MediaSession;
+
+import com.srvraj311.smart_health_management.HospitalScreen.Hospital;
 import com.srvraj311.smart_health_management.Models.LoginRequest;
 import com.srvraj311.smart_health_management.Models.User;
 
 import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -34,4 +38,7 @@ public interface RetrofitAPICall {
 
     @GET
     Call<String> getUrl();
+
+    @POST("client/hospitals/all")
+    Call <List<Hospital>> getAllHospitals(@Body HashMap<String, String> map);
 }

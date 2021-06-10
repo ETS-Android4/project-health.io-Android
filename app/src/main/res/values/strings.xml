@@ -56,6 +56,7 @@
     <string name="police">Police</string>
     <string name="sort_by">Sort By Name</string>
     <string name="select_location">Select Location</string>
+    <string name="eta">ETA</string>
 
     <string-array name="sort_methods">
         <item>Sort by Name </item>
