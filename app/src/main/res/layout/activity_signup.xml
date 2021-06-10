@@ -181,7 +181,7 @@
             android:layout_width="300dp"
             android:layout_height="71dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/gradient_button"
+            android:background="@drawable/rounded_corners"
             android:contentDescription="@string/sign_up"
             android:text="@string/sign_up"
             android:textColor="@color/white"

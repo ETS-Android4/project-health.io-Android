@@ -128,7 +128,7 @@
             android:id="@+id/login"
             android:layout_width="300dp"
             android:layout_height="71dp"
-            android:background="@drawable/gradient_button"
+            android:background="@drawable/rounded_corners"
             android:contentDescription="@string/login"
             android:text="@string/login"
             android:textColor="@color/white"

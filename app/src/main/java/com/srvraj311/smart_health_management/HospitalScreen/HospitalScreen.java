@@ -105,6 +105,7 @@ public class HospitalScreen extends AppCompatActivity {
         adapter = new HospitalsAdapter(hospitals);
         recyclerView.setAdapter(adapter);
         //-------------------------------------------------------------------//
+        // Getting Data from Server , In a seperate Thread.
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
