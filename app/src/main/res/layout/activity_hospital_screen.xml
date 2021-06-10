@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_button"
+    android:background="@color/light_gray"
     tools:context=".HospitalScreen.HospitalScreen">
 
     <ImageButton
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/cabin_semibold"
         android:text="@string/hospitals"
-        android:textColor="@color/white"
+        android:textColor="@color/very_dark_gray"
         android:textAlignment="center"
         android:textSize="20sp"
         android:paddingEnd="10dp"
@@ -79,6 +79,7 @@
         app:layout_constraintTop_toBottomOf="@id/hospital_heading"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
         app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
         app:boxCornerRadiusBottomEnd="40dp"
         app:boxCornerRadiusBottomStart="40dp"
         app:boxCornerRadiusTopEnd="40dp"
@@ -135,6 +136,7 @@
         app:boxCornerRadiusTopStart="40dp"
         android:outlineProvider="none"
         app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
         android:layout_marginTop="20dp"
         >
 

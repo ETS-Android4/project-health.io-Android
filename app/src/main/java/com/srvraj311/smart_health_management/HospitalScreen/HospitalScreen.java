@@ -7,6 +7,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -15,6 +16,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.FrameLayout;
@@ -114,7 +116,6 @@ public class HospitalScreen extends AppCompatActivity {
         searchView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -132,18 +133,28 @@ public class HospitalScreen extends AppCompatActivity {
                 // updating the sorted Array after Text change
                 adapter.setData(searchedList);
             }
-
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 
+
+
         // Set Sort-By Options Array
         String[] sortArray = getResources().getStringArray(R.array.sort_methods);
-        ArrayAdapter<String> sortOptionsAdapter = new ArrayAdapter<>(HospitalScreen.this, R.layout.sortby_dropdown, sortArray);
+        ArrayAdapter<String> sortOptionsAdapter = new ArrayAdapter<>(getApplication(), R.layout.sortby_dropdown, sortArray);
         sortByDropdownView.setAdapter(sortOptionsAdapter);
-
+        sortByDropdownView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                HospitalSorter sorter = new HospitalSorter(hospitals);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    sorter.sortHospital(position);
+                    hospitals = sorter.getHospitals();
+                    adapter.setData(hospitals);
+                }
+            }
+        });
     }
 
 
