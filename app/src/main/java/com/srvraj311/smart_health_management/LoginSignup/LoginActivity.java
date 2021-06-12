@@ -140,6 +140,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 @Override
                 public void onFailure(Call<HashMap<String, String>> call, Throwable t) {
+                    message.setText(R.string.network_error_2);
                     Log.e("Get Request :" , "Error, Request Failed");
                     t.printStackTrace();
                     // Progress Bar INVISIBLE below

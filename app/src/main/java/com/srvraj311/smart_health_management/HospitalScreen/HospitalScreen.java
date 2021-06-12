@@ -179,6 +179,7 @@ public class HospitalScreen extends AppCompatActivity {
         HashMap<String, String> data = gson.fromJson(json, type);
 
         // Making an API call
+
         Retrofit retrofit = new Retrofit.Builder()
         .baseUrl(Config.getURL())
         .addConverterFactory(GsonConverterFactory.create())
@@ -192,12 +193,10 @@ public class HospitalScreen extends AppCompatActivity {
             public void onResponse(Call<List<Hospital>> call, Response<List<Hospital>> response) {
                 try {
                     if(response.code() == 200){
-                        Log.e("ITEM DETAILS", response.body().get(0).getName());
                         stopProgressBar();
                         hospitals = response.body();
                         adapter.setData(hospitals);
                     }
-
                     if(response.code() == 406){
                         // Log out
                         Log.e("Error in Call", "Token Validation Failed");
@@ -211,7 +210,7 @@ public class HospitalScreen extends AppCompatActivity {
                         clearUserTokenInDB();
                         stopProgressBar();
                     }else{
-                        Log.e("Status Code", String.valueOf(response.code()));
+                        Log.e("Status HospitalScreen", String.valueOf(response.code()));
                         stopProgressBar();
                     }
                 }catch (Exception e){
