@@ -1,18 +1,22 @@
 package com.srvraj311.smart_health_management.HospitalScreen;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.srvraj311.smart_health_management.HospitalInfoScreen.HospitalInfoScreen;
 import com.srvraj311.smart_health_management.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -34,7 +38,6 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
         notifyDataSetChanged();
     }
 
-
     @NonNull
     @NotNull
     @Override
@@ -46,9 +49,6 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
         // Inflate the custom layout
         View HospitalView = inflater.inflate(R.layout.layout_hospital_item, parent, false);
 
-        // Assigning data To Fields
-
-
         // Return a new holder instance
         return new ViewHolder(HospitalView);
     }
@@ -57,9 +57,31 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
         Hospital hospital = hospitals.get(position);
-        holder.title.setText(hospital.getName());
-        holder.hospital_type.setText(hospital.getType());
+        // Name of Hospital
+        String name = hospital.getName();
+        if(name.length() > 40){
+            name = name.substring(0,40);
+        }
+        holder.title.setText(name);
+
+        // Type
+        String type = hospital.getType();
+        type = "" + Character.toUpperCase(type.charAt(0)) + type.substring(1,type.length());
+        holder.hospital_type.setText(type);
+
+        //Address
         holder.address.setText(hospital.getAddress());
+
+
+        /// Setting Up OnClick Listener
+        // TODO : Works only with Double Tap
+//        holder.box.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(holder.itemView.getContext(), HospitalInfoScreen.class);
+//                holder.itemView.getContext().startActivity(intent);
+//            }
+//        });
 
         // Hospital Timing
         String time = "";
@@ -88,17 +110,18 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
         holder.vacant_bed.setText(String.valueOf(vacant));
 
         if(percent > 0.8){
-            holder.vacant_bed.setTextColor(Color.parseColor("#247700"));
+            holder.vacant_bed.setTextColor(Color.parseColor("#FF2222"));
         }else if(percent > 0.6){
             holder.vacant_bed.setTextColor(Color.parseColor("#FF9800"));
         }else{
-            holder.vacant_bed.setTextColor(Color.parseColor("#FF2222"));
+            holder.vacant_bed.setTextColor(Color.parseColor("#247700"));
         }
 
         // Geolocation
         // TODO : Set Direction using API
 
     }
+
 
     @Override
     public int getItemCount() {
@@ -114,6 +137,7 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
         public TextView grade;
         public TextView vacant_bed;
         public TextView eta;
+        public CardView box;
 
 
 
@@ -126,6 +150,7 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
             grade = itemView.findViewById(R.id.hospital_grade);
             vacant_bed = itemView.findViewById(R.id.hospital_bed_vacant);
             eta = itemView.findViewById(R.id.hospital_eta);
+            box = itemView.findViewById(R.id.hospital_item_single);
         }
     }
 }

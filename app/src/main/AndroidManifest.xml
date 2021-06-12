@@ -19,7 +19,8 @@
         android:theme="@style/Theme.SmartHealthManagement"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".HospitalScreen.HospitalScreen"></activity>
+        <activity android:name=".HospitalInfoScreen.HospitalInfoScreen"></activity>
+        <activity android:name=".HospitalScreen.HospitalScreen" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

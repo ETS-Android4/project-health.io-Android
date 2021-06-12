@@ -201,7 +201,7 @@ public class SignupActivity extends AppCompatActivity {
         String pwRegex = "^(?=.*[0-9])"
                 + "(?=.*[a-z])(?=.*[A-Z])"
                 + "(?=.*[@#$%^&+=])"
-                + "(?=\\S+$).{8,20}$";
+                + "(?=\\S+$).{6,20}$";
         
         Pattern pat = Pattern.compile(pwRegex);
         if (pwd == null)
@@ -252,7 +252,7 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         if(!isValidPassword(pw1)){
-            password1.setError("Weak Password");
+            password1.setError("Weak Password, Must Contain a Special Symbol, One UpperCase, One Lowercase, One Numeric value and be Minimum 6 and Maximum 20 Characters Long");
             return false;
         }else{
             password1.setError(null);

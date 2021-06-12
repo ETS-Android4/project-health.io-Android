@@ -1,5 +1,6 @@
 package com.srvraj311.smart_health_management.HospitalScreen;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -30,6 +32,8 @@ import com.srvraj311.smart_health_management.API.RetrofitAPICall;
 import com.srvraj311.smart_health_management.Config.Config;
 import com.srvraj311.smart_health_management.MainActivity;
 import com.srvraj311.smart_health_management.R;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -104,6 +108,10 @@ public class HospitalScreen extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         adapter = new HospitalsAdapter(hospitals);
         recyclerView.setAdapter(adapter);
+
+        // -------------------- Setting Item Click Option of Recycler View ---------////
+
+
         //-------------------------------------------------------------------//
         // Getting Data from Server , In a seperate Thread.
         new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -122,6 +130,7 @@ public class HospitalScreen extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 List<Hospital> searchedList = new ArrayList<>();
+                s = s.toString().toLowerCase();
                 for(Hospital hospital: hospitals){
                     // TODO : Add hospital Description Matching Here
                     if (hospital.getName().toLowerCase().contains(s) ||
