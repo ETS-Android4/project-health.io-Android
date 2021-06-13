@@ -8,13 +8,14 @@
     android:background="@color/white">
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/hospital"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg_green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="fitXY"
         android:adjustViewBounds="true"
-        android:scaleType="fitStart"
         />
 
     <TextView
@@ -23,7 +24,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/actor"
         android:text="@string/welcome"
-        android:textColor="@color/dark_green"
+        android:textColor="@color/white"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +36,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/cabin_semibold"
         android:text="@string/live_your_choice"
-        android:textColor="@color/dark_green"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_logo" />

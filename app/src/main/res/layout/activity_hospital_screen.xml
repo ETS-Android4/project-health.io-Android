@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_gray"
+    android:background="?android:colorBackground"
     tools:context=".HospitalScreen.HospitalScreen">
 
     <ImageButton
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/cabin_semibold"
         android:text="@string/hospitals"
-        android:textColor="@color/very_dark_gray"
+        android:textColor="?colorOnSecondary"
         android:textAlignment="center"
         android:textSize="20sp"
         android:paddingEnd="10dp"
@@ -95,7 +95,6 @@
             android:background="@drawable/rounded_corners_white"
             android:hint="@string/sort_by"
             android:inputType="none"
-            android:backgroundTint="@color/white"
             />
     </com.google.android.material.textfield.TextInputLayout>
     <FrameLayout
@@ -145,7 +144,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:backgroundTint="@color/white"
             android:hint="@string/select_location"
             android:background="@drawable/rounded_corners_white"
             android:inputType="none" />

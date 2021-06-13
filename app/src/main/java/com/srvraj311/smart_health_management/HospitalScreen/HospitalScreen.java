@@ -30,6 +30,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.srvraj311.smart_health_management.API.RetrofitAPICall;
 import com.srvraj311.smart_health_management.Config.Config;
+import com.srvraj311.smart_health_management.HospitalInfoScreen.HospitalInfoScreen;
 import com.srvraj311.smart_health_management.MainActivity;
 import com.srvraj311.smart_health_management.R;
 
@@ -106,9 +107,15 @@ public class HospitalScreen extends AppCompatActivity {
         // --------------------- Setting Up Recycler View ------------------//
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new HospitalsAdapter(hospitals);
+        adapter = new HospitalsAdapter(hospitals, new HospitalsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Hospital hospital) {
+                Intent intent = new Intent(getApplicationContext(), HospitalInfoScreen.class);
+                intent.putExtra("id",hospital.getLicence_id());
+                startActivity(intent);
+            }
+        });
         recyclerView.setAdapter(adapter);
-
         // -------------------- Setting Item Click Option of Recycler View ---------////
 
 

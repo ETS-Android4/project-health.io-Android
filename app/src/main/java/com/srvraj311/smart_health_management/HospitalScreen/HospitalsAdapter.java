@@ -27,15 +27,20 @@ import java.util.zip.Inflater;
 public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.ViewHolder> {
 
     List<Hospital> hospitals;
+    private final OnItemClickListener listener;
 
 
-    public HospitalsAdapter(List<Hospital> hospitals){
+    public HospitalsAdapter(List<Hospital> hospitals, OnItemClickListener listener){
         this.hospitals = hospitals;
+        this.listener = listener;
     }
 
     public void setData(List<Hospital> hospitals){
         this.hospitals = hospitals;
         notifyDataSetChanged();
+    }
+    public interface OnItemClickListener{
+        void onItemClick(Hospital hospital);
     }
 
     @NonNull
@@ -53,9 +58,15 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
         return new ViewHolder(HospitalView);
     }
 
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
+
+
+        // Setting Up the OnClick
+        holder.bind(hospitals.get(position), listener);
+
         Hospital hospital = hospitals.get(position);
         // Name of Hospital
         String name = hospital.getName();
@@ -139,8 +150,6 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
         public TextView eta;
         public CardView box;
 
-
-
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.hospital_name);
@@ -151,6 +160,14 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
             vacant_bed = itemView.findViewById(R.id.hospital_bed_vacant);
             eta = itemView.findViewById(R.id.hospital_eta);
             box = itemView.findViewById(R.id.hospital_item_single);
+        }
+        public void bind(final Hospital hospital, final OnItemClickListener listener){
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(hospital);
+                }
+            });
         }
     }
 }

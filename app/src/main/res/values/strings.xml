@@ -23,7 +23,6 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
@@ -58,6 +57,19 @@
     <string name="select_location">Select Location</string>
     <string name="eta">ETA</string>
     <string name="network_error_2">Cannot Connect to Server</string>
+    <string name="description">Description</string>
+    <string name="hospital_description">This is a sample Description of a Hospital, That will be entered by the hospital and shown to user on his/her android device</string>
+    <string name="icu">ICU</string>
+    <string name="ccu">CCU</string>
+    <string name="ventilators">Ventilators</string>
+    <string name="oxygen">Oxygen</string>
+    <string name="x_ray">X-Ray</string>
+    <string name="mri">MRI</string>
+    <string name="ecg">ECG</string>
+    <string name="availabilities">Availabilities</string>
+    <string name="facilities">Facilities</string>
+    <string name="ultra_sound">Ultra Sound</string>
+    <string name="bed">Bed</string>
 
     <string-array name="sort_methods">
         <item>Sort by Name </item>
