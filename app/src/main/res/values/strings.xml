@@ -79,7 +79,7 @@
     <string name="refresh_data">Refresh Data</string>
     <string name="navigate">Navigate</string>
     <string name="last_updated">Last Updated :</string>
-    <string name="hrs_24">24 hrs</string>
+    <string name="hrs_24">24 hours</string>
 
     <string-array name="sort_methods">
         <item>Sort by Name </item>
@@ -88,5 +88,18 @@
         <item>Sort By Availability</item>
         <item>Sort By Fees</item>
     </string-array>
+    <string name="title_activity_sign_up_otp">SignUpOTP</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="an_otp_has_been_sent_to_your_email">An OTP has been sent to your Email :</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="resend">Resend</string>
+    <string name="network_error_3">Seems like a Network Error</string>
 
 </resources>

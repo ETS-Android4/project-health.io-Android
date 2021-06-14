@@ -75,9 +75,6 @@ public class SignupActivity extends AppCompatActivity {
         fname.requestFocus();
 
 
-
-
-
         // OnClicks
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,8 +104,6 @@ public class SignupActivity extends AppCompatActivity {
      *
      */
 
-
-
     private void signUp(User newUser) {
 
         runOnUiThread(new Runnable() {
@@ -119,76 +114,19 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        // Creating a retrofit Instance
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Config.getURL())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        // Instancing my interface
-        RetrofitAPICall apiCall = retrofit.create(RetrofitAPICall.class);
-
-        // Creating a call
-        Call<HashMap<String, String>> call = apiCall.signUp(newUser);
-
-        //getting data
-        call.enqueue(new Callback<HashMap<String, String>>() {
-            @Override
-            public void onResponse(Call<HashMap<String, String>> call, Response<HashMap<String, String>> response) {
-                // Can check code of status using response.code()
-                // Getting actual Data
-                try {
-                    if (response.body().containsKey("error")) {
-                        message.setText(response.body().get("error"));
-                        message.setTextColor(Color.RED);
-
-                        // Progress Bar INVISIBLE below
-                        darken.setVisibility(View.INVISIBLE);
-                        progressBar.setVisibility(View.INVISIBLE);
-                    } else {
-                        // Progress Bar INVISIBLE below
-                        darken.setVisibility(View.INVISIBLE);
-                        progressBar.setVisibility(View.INVISIBLE);
-
-                        message.setText(R.string.signedUpSucces);
-                        userToken = response.body();
-
-                        // Call to save token to SharedPreference
-                        saveToken(userToken, "token");
-                        Intent intent = new Intent(getApplicationContext(), HomeScreen.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        finish();
-                    }
-                }catch (Exception e){
-                    message.setText(R.string.networkError);
-                    message.setTextColor(Color.RED);
-                    // Progress Bar INVISIBLE below
-                    darken.setVisibility(View.INVISIBLE);
-                    progressBar.setVisibility(View.INVISIBLE);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<HashMap<String, String>> call, Throwable t) {
-                Log.e("Get Request :" , "Error, Request Failed");
-                t.printStackTrace();
-            }
-        });
-
+        // Create a new OnScreen fragment that will check for otp
+                Intent intent = new Intent(SignupActivity.this, SignUpOTP.class);
+                intent.putExtra("email", newUser.getEmail());
+                intent.putExtra("first_name", newUser.getFirst_name());
+                intent.putExtra("last_name", newUser.getLast_name());
+                intent.putExtra("mobile_num", newUser.getEmail());
+                intent.putExtra("password", newUser.getEmail());
+                intent.putExtra("age", newUser.getEmail());
+                intent.putExtra("dog_tag", newUser.getEmail());
+                startActivity(intent);
     }
 
-    private void saveToken(HashMap<String, String> userToken, String place) {
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String token = gson.toJson(userToken);
-        editor.clear();
-        editor.putString(place,token);
-        editor.apply();
-    }
-
-
-    // Additional Methods
+    // Form validation Methods Below
 
     public boolean isValidEmail(String email){
         String emailRegex = "^(.+)@(.+)$";

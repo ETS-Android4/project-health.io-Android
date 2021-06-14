@@ -3,9 +3,10 @@ package com.srvraj311.smart_health_management.HospitalScreen;
 import java.util.HashMap;
 
 public class Hospital {
-
     private String licence_id;
     private String name;
+    private String description;
+    private String contact;
     private String address;
     private String city_name;
     private String state_name;
@@ -21,57 +22,6 @@ public class Hospital {
     private String vacant_ccu;
     private String ventilators;
     private String vacant_ventilators;
-    private String oxygen_cylinders;
-    private String vacant_oxygen_cylinders;
-    private HashMap<String,String> blood_bank;
-    private String x_ray;
-    private String mri;
-    private String ecg;
-    private String ultra_sound;
-    private String opening_time;
-    private String closing_time;
-    private Boolean is_24_hr_service;
-    private String general_fees;
-    private String vacant_ambulance;
-
-    public Hospital(String licence_id, String name, String address, String city_name,
-                    String state_name, String geolocation, String type, String grade,
-                    String last_updated, String no_of_bed, String vacant_bed, String icu,
-                    String vacant_icu, String ccu, String vacant_ccu, String ventilators,
-                    String vacant_ventilators, String oxygen_cylinders, String vacant_oxygen_cylinders,
-                    HashMap<String, String> blood_bank, String x_ray, String mri, String ecg, String ultra_sound,
-                    String opening_time, String closing_time, Boolean is_24_hr_service, String general_fees,
-                    String vacant_ambulance) {
-        this.licence_id = licence_id;
-        this.name = name;
-        this.address = address;
-        this.city_name = city_name;
-        this.state_name = state_name;
-        this.geolocation = geolocation;
-        this.type = type;
-        this.grade = grade;
-        this.last_updated = last_updated;
-        this.no_of_bed = no_of_bed;
-        this.vacant_bed = vacant_bed;
-        this.icu = icu;
-        this.vacant_icu = vacant_icu;
-        this.ccu = ccu;
-        this.vacant_ccu = vacant_ccu;
-        this.ventilators = ventilators;
-        this.vacant_ventilators = vacant_ventilators;
-        this.oxygen_cylinders = oxygen_cylinders;
-        this.vacant_oxygen_cylinders = vacant_oxygen_cylinders;
-        this.blood_bank = blood_bank;
-        this.x_ray = x_ray;
-        this.mri = mri;
-        this.ecg = ecg;
-        this.ultra_sound = ultra_sound;
-        this.opening_time = opening_time;
-        this.closing_time = closing_time;
-        this.is_24_hr_service = is_24_hr_service;
-        this.general_fees = general_fees;
-        this.vacant_ambulance = vacant_ambulance;
-    }
 
     public String getLicence_id() {
         return licence_id;
@@ -87,6 +37,22 @@ public class Hospital {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     public String getAddress() {
@@ -302,6 +268,60 @@ public class Hospital {
     }
 
     public void setVacant_ambulance(String vacant_ambulance) {
+        this.vacant_ambulance = vacant_ambulance;
+    }
+
+    private String oxygen_cylinders;
+    private String vacant_oxygen_cylinders;
+    private HashMap<String,String> blood_bank;
+    private String x_ray;
+    private String mri;
+    private String ecg;
+    private String ultra_sound;
+    private String opening_time;
+    private String closing_time;
+    private Boolean is_24_hr_service;
+    private String general_fees;
+    private String vacant_ambulance;
+
+
+    public Hospital(String licence_id, String name, String description, String contact, String address,
+                    String city_name, String state_name, String geolocation, String type, String grade,
+                    String last_updated, String no_of_bed, String vacant_bed, String icu, String vacant_icu,
+                    String ccu, String vacant_ccu, String ventilators, String vacant_ventilators,
+                    String oxygen_cylinders, String vacant_oxygen_cylinders, HashMap<String, String> blood_bank,
+                    String x_ray, String mri, String ecg, String ultra_sound, String opening_time,
+                    String closing_time, Boolean is_24_hr_service, String general_fees, String vacant_ambulance) {
+        this.licence_id = licence_id;
+        this.name = name;
+        this.description = description;
+        this.contact = contact;
+        this.address = address;
+        this.city_name = city_name;
+        this.state_name = state_name;
+        this.geolocation = geolocation;
+        this.type = type;
+        this.grade = grade;
+        this.last_updated = last_updated;
+        this.no_of_bed = no_of_bed;
+        this.vacant_bed = vacant_bed;
+        this.icu = icu;
+        this.vacant_icu = vacant_icu;
+        this.ccu = ccu;
+        this.vacant_ccu = vacant_ccu;
+        this.ventilators = ventilators;
+        this.vacant_ventilators = vacant_ventilators;
+        this.oxygen_cylinders = oxygen_cylinders;
+        this.vacant_oxygen_cylinders = vacant_oxygen_cylinders;
+        this.blood_bank = blood_bank;
+        this.x_ray = x_ray;
+        this.mri = mri;
+        this.ecg = ecg;
+        this.ultra_sound = ultra_sound;
+        this.opening_time = opening_time;
+        this.closing_time = closing_time;
+        this.is_24_hr_service = is_24_hr_service;
+        this.general_fees = general_fees;
         this.vacant_ambulance = vacant_ambulance;
     }
 }

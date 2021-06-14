@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,8 +41,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class HospitalInfoScreen extends AppCompatActivity {
+import static com.srvraj311.smart_health_management.R.drawable.ic_private;
 
+public class HospitalInfoScreen extends AppCompatActivity {
     TextView name;
     TextView type;
     TextView grade;
@@ -66,37 +68,44 @@ public class HospitalInfoScreen extends AppCompatActivity {
     TextView ab_negative;
     TextView d_time;
     TextView lastUpdated;
-    Button refreshButton;
     TextView address;
     TextView emergency_no;
+    ImageButton refreshButton;
+    ImageButton typeButton;
+    ImageButton gradeButton;
+    ImageButton directionsButton;
 
     String id;
     Hospital hospital;
     List<EmergencyCases> emergencyCasesList;
 
     private void setViews() {
+
         // Setting Name and City
         String hname = hospital.getName() + ", " + hospital.getCity_name() +  ", " + hospital.getState_name();
         name.setText(hname);
+
         // Setting Type
         String htype = hospital.getType();
         htype = "" + Character.toUpperCase(htype.charAt(0)) + htype.substring(1,htype.length());
         type.setText(htype);
         if(htype.charAt(0) == 'p' || htype.charAt(0) == 'P'){
-            type.setTextColor(Color.BLUE);
+            typeButton.setImageResource(R.drawable.ic_private);
         }else{
-            type.setTextColor(Color.MAGENTA);
+            typeButton.setImageResource(R.drawable.ic_government);
         }
+
         // Setting Grade
-        String hgrade = hospital.getGrade();
+        String hgrade = hospital.getGrade() + " Grade";
         grade.setText(hgrade);
-        if(hgrade.equals("A")){
-            grade.setTextColor(Color.parseColor("#247700"));
-        }else if(hgrade.equals("B")){
-            grade.setTextColor(Color.parseColor("#FF9800"));
+        if(hospital.getGrade().equals("A")){
+            gradeButton.setImageResource(R.drawable.ic_alphabet_a);
+        }else if(hospital.getGrade().equals("B")){
+            gradeButton.setImageResource(R.drawable.ic_alphabet_b);
         }else{
-            grade.setTextColor(Color.parseColor("#FF2222"));
+            gradeButton.setImageResource(R.drawable.ic_alphabet_c);
         }
+
         // Setting up Address
         address.setText(hospital.getAddress());
 
@@ -121,8 +130,9 @@ public class HospitalInfoScreen extends AppCompatActivity {
 //            }
 //        });
         // Description
-        String hdescription = "This data functionality is not yet implemented onto the database part of the application, Will soon be added";
+        String hdescription = hospital.getDescription();
         description.setText(hdescription);
+
 
         // ------ Availabilities Section -----//
         // BED
@@ -217,7 +227,6 @@ public class HospitalInfoScreen extends AppCompatActivity {
             d_time.setText(time);
         }else{
             d_time.setText(R.string.hrs_24);
-            d_time.setTextColor(Color.GREEN);
         }
 
         // Setting up Last-Updated Section
@@ -273,6 +282,9 @@ public class HospitalInfoScreen extends AppCompatActivity {
         lastUpdated = findViewById(R.id.display_last_updated);
         refreshButton = findViewById(R.id.refresh_button);
         emergency_no = findViewById(R.id.display_emergency);
+        typeButton = findViewById(R.id.display_type_icon);
+        gradeButton = findViewById(R.id.display_grade_icon);
+        directionsButton = findViewById(R.id.display_distance_icon);
 
 
         refreshButton.setOnClickListener(new View.OnClickListener() {
@@ -392,14 +404,15 @@ public class HospitalInfoScreen extends AppCompatActivity {
 
 
     public String changeColour(String num, String total){
-        int a = Integer.parseInt(num);
-        int b = Integer.parseInt(total);
-        int percent = (a / b) * 100;
+        float a = Integer.parseInt(num);
+        float b = Integer.parseInt(total);
+        float res = a / b;
+        int percent = (int) (res * 100);
         if (percent > 75) {
             return "#247700";
         }else if(percent > 55){
             return "#FF9800";
-        }else{
+        }else {
             return "#FF2222";
         }
     }

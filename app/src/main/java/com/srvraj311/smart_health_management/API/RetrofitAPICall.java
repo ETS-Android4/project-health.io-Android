@@ -51,6 +51,9 @@ public interface RetrofitAPICall {
     @POST("client/hospitals/id")
     Call <Hospital> getHospitalById(@Body HashMap<String, String> map);
 
+    @GET("client/users/signup/sendOtp/{email}")
+    Call <HashMap<String, String>> sendOtp(@Path("email") String email);
+
 //    @GET("json?origins={current}&destinations={hospital}&key=AIzaSyAakNhNaG19KkP5v5CEgkhlx-ISyEoxRe8")
 //    Call <String > getMatrix(@Query("current") String current, @Query("hospital") String hospital);
 }
