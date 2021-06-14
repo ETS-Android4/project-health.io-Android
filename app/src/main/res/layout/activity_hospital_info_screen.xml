@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             app:cardCornerRadius="20dp"
-            app:cardElevation="5dp"
+            app:cardElevation="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -88,7 +88,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             app:cardCornerRadius="20dp"
-            app:cardElevation="5dp"
+            app:cardElevation="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/circularRevealCardView">
@@ -149,7 +149,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             app:cardCornerRadius="20dp"
-            app:cardElevation="5dp"
+            app:cardElevation="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/circularRevealCardView2">
@@ -224,7 +224,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             app:cardCornerRadius="20dp"
-            app:cardElevation="5dp"
+            app:cardElevation="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/circularRevealCardView3">
@@ -429,7 +429,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
             app:cardCornerRadius="20dp"
-            app:cardElevation="5dp"
+            app:cardElevation="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/circularRevealCardView4">
@@ -634,7 +634,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
             app:cardCornerRadius="20dp"
-            app:cardElevation="5dp"
+            app:cardElevation="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/circularRevealCardView5">
@@ -940,7 +940,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
             app:cardCornerRadius="20dp"
-            app:cardElevation="5dp"
+            app:cardElevation="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/circularRevealCardView6">
@@ -970,13 +970,13 @@
                     android:fontFamily="@font/cabin_bold"
                     android:text="@string/emergency_cases_reported"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/textView4"
+                    app:layout_constraintEnd_toStartOf="@+id/display_emergency"
                     app:layout_constraintHorizontal_bias="0.1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/emergency_holder" />
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/display_emergency"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"

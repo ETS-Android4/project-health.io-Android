@@ -68,6 +68,7 @@ public class HospitalInfoScreen extends AppCompatActivity {
     TextView lastUpdated;
     Button refreshButton;
     TextView address;
+    TextView emergency_no;
 
     String id;
     Hospital hospital;
@@ -157,23 +158,23 @@ public class HospitalInfoScreen extends AppCompatActivity {
 
         // MRI
         String hmri = checkNull(hospital.getMri());
-        xray.setText(hmri);
-        xray.setTextColor(Color.parseColor(setColor(hmri)));
+        mri.setText(hmri);
+        mri.setTextColor(Color.parseColor(setColor(hmri)));
 
         // ECG
         String hecg = checkNull(hospital.getEcg());
-        xray.setText(hecg);
-        xray.setTextColor(Color.parseColor(setColor(hecg)));
+        ecg.setText(hecg);
+        ecg.setTextColor(Color.parseColor(setColor(hecg)));
 
         // ultra Sound
         String hultra_sound = checkNull(hospital.getUltra_sound());
-        xray.setText(hultra_sound);
-        xray.setTextColor(Color.parseColor(setColor(hultra_sound)));
+        ultraSound.setText(hultra_sound);
+        ultraSound.setTextColor(Color.parseColor(setColor(hultra_sound)));
 
         // Ambulance
         String hambulance = checkNull(hospital.getVacant_ambulance());
-        xray.setText(hambulance);
-        xray.setTextColor(Color.parseColor(setColor(hambulance)));
+        ambulance.setText(hambulance);
+        ambulance.setTextColor(Color.parseColor(setColor(hambulance)));
 
         // Setting up blood Bank
         HashMap<String , String > bg = hospital.getBlood_bank();
@@ -223,6 +224,8 @@ public class HospitalInfoScreen extends AppCompatActivity {
         String hdate = "Last Updated : " + hospital.getLast_updated();
         lastUpdated.setText(hdate);
 
+        // Setting Up Emergency cases
+        emergency_no.setText(String.valueOf(emergencyCasesList.size()));
     }
 
     @Override
@@ -233,6 +236,7 @@ public class HospitalInfoScreen extends AppCompatActivity {
         setContentView(R.layout.activity_hospital_info_screen);
 
         id = getIntent().getExtras().getString("id");
+        emergencyCasesList = new ArrayList<>();
         // Getting data from Server
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
@@ -268,6 +272,7 @@ public class HospitalInfoScreen extends AppCompatActivity {
         d_time = findViewById(R.id.display_time);
         lastUpdated = findViewById(R.id.display_last_updated);
         refreshButton = findViewById(R.id.refresh_button);
+        emergency_no = findViewById(R.id.display_emergency);
 
 
         refreshButton.setOnClickListener(new View.OnClickListener() {
@@ -293,9 +298,20 @@ public class HospitalInfoScreen extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<EmergencyCases>> call, Response<List<EmergencyCases>> response) {
                 if(response.code() == 200){
-                    emergencyCasesList = response.body();
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            emergencyCasesList = response.body();
+                        }
+                    });
+
                 }else{
-                    emergencyCasesList = new ArrayList<>();
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            emergencyCasesList = new ArrayList<>();
+                        }
+                    });
                 }
             }
 
