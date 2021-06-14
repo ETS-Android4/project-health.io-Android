@@ -48,19 +48,33 @@
                     android:id="@+id/display_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="30dp"
+                    android:fontFamily="@font/cabin_semibold"
+                    android:text="@string/hospital_name"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+                <TextView
+                    android:id="@+id/display_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="20dp"
                     android:fontFamily="@font/cabin_semibold"
-                    android:text="@string/hospital_name"
+                    android:text="Address"
                     android:textAlignment="center"
-                    android:textSize="20sp"
-
+                    android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+                    app:layout_constraintTop_toBottomOf="@+id/display_name" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
@@ -182,6 +196,7 @@
                     app:layout_constraintTop_toBottomOf="@id/display_description" />
 
                 <TextView
+                    android:id="@+id/display_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -189,7 +204,7 @@
                     android:fontFamily="@font/cabin_bold"
                     android:text="24 Hour Service"
                     android:textAlignment="center"
-                    android:textColor="@color/dark_green"
+
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -1011,6 +1026,7 @@
             app:layout_constraintTop_toBottomOf="@id/circularRevealCardView7" />
 
             <TextView
+                android:id="@+id/display_last_updated"
                 android:layout_margin="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

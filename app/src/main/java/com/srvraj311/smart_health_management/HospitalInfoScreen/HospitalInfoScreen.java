@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +25,11 @@ import com.srvraj311.smart_health_management.Models.EmergencyCases;
 import com.srvraj311.smart_health_management.R;
 
 import java.lang.reflect.Type;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -50,6 +56,18 @@ public class HospitalInfoScreen extends AppCompatActivity {
     TextView ecg;
     TextView ultraSound;
     TextView ambulance;
+    TextView a_positive;
+    TextView a_negative;
+    TextView b_positive;
+    TextView b_negative;
+    TextView o_positive;
+    TextView o_negative;
+    TextView ab_positive;
+    TextView ab_negative;
+    TextView d_time;
+    TextView lastUpdated;
+    Button refreshButton;
+    TextView address;
 
     String id;
     Hospital hospital;
@@ -78,6 +96,9 @@ public class HospitalInfoScreen extends AppCompatActivity {
         }else{
             grade.setTextColor(Color.parseColor("#FF2222"));
         }
+        // Setting up Address
+        address.setText(hospital.getAddress());
+
         // TODO : Add distance here
 //        String geoCord = hospital.getGeolocation().trim();
 //        String current = "40.6655101,-73.89188969999998";
@@ -153,6 +174,55 @@ public class HospitalInfoScreen extends AppCompatActivity {
         String hambulance = checkNull(hospital.getVacant_ambulance());
         xray.setText(hambulance);
         xray.setTextColor(Color.parseColor(setColor(hambulance)));
+
+        // Setting up blood Bank
+        HashMap<String , String > bg = hospital.getBlood_bank();
+        try {
+            // A+
+            a_positive.setText(bg.get("a_positive"));
+            a_positive.setTextColor(Color.parseColor(color(bg.get("a_positive"))));
+            //A-
+            a_negative.setText(bg.get("a_negative"));
+            a_negative.setTextColor(Color.parseColor(color(bg.get("a_negative"))));
+            //B+
+            b_positive.setText(bg.get("b_positive"));
+            b_positive.setTextColor(Color.parseColor(color(bg.get("b_positive"))));
+            //B-
+            b_negative.setText(bg.get("b_negative"));
+            b_negative.setTextColor(Color.parseColor(color(bg.get("b_negative"))));
+            //O+
+            o_positive.setText(bg.get("o_positive"));
+            o_positive.setTextColor(Color.parseColor(color(bg.get("o_positive"))));
+            //O-
+            o_negative.setText(bg.get("o_negative"));
+            o_negative.setTextColor(Color.parseColor(color(bg.get("o_negative"))));
+            //AB+
+            ab_positive.setText(bg.get("ab_positive"));
+            ab_positive.setTextColor(Color.parseColor(color(bg.get("ab_positive"))));
+            //AB-
+            ab_negative.setText(bg.get("ab_negative"));
+            ab_negative.setTextColor(Color.parseColor(color(bg.get("ab_negative"))));
+        }catch (Exception e){
+            Log.e("ERROR", "ERROR IN PARSING THE BLOOD_GROUP MAP");
+            e.printStackTrace();
+        }
+
+        // Setting up time
+        boolean is24hr = hospital.getIs_24_hr_service();
+        if(!is24hr) {
+            String open = hospital.getOpening_time();
+            String close = hospital.getClosing_time();
+            String time = open + " - " + close;
+            d_time.setText(time);
+        }else{
+            d_time.setText(R.string.hrs_24);
+            d_time.setTextColor(Color.GREEN);
+        }
+
+        // Setting up Last-Updated Section
+        String hdate = "Last Updated : " + hospital.getLast_updated();
+        lastUpdated.setText(hdate);
+
     }
 
     @Override
@@ -175,6 +245,7 @@ public class HospitalInfoScreen extends AppCompatActivity {
         name = findViewById(R.id.display_name);
         type = findViewById(R.id.display_type);
         grade = findViewById(R.id.display_grade);
+        address = findViewById(R.id.display_address);
         description = findViewById(R.id.display_description);
         bed = findViewById(R.id.display_bed);
         icu = findViewById(R.id.display_icu);
@@ -186,6 +257,25 @@ public class HospitalInfoScreen extends AppCompatActivity {
         ecg = findViewById(R.id.display_ecg);
         ultraSound = findViewById(R.id.display_ultra_sound);
         ambulance = findViewById(R.id.display_ambulance);
+        a_positive = findViewById(R.id.a_positive);
+        a_negative = findViewById(R.id.a_negative);
+        b_positive = findViewById(R.id.b_positive);
+        b_negative = findViewById(R.id.b_negative);
+        o_positive = findViewById(R.id.o_positive);
+        o_negative = findViewById(R.id.o_negative);
+        ab_positive = findViewById(R.id.ab_positive);
+        ab_negative = findViewById(R.id.ab_negative);
+        d_time = findViewById(R.id.display_time);
+        lastUpdated = findViewById(R.id.display_last_updated);
+        refreshButton = findViewById(R.id.refresh_button);
+
+
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getData();
+            }
+        });
 
     }
 
@@ -306,6 +396,13 @@ public class HospitalInfoScreen extends AppCompatActivity {
     }
     public String setColor(String nums){
         if(nums.equals("NA")){
+            return "#FF2222";
+        }else{
+            return "#247700";
+        }
+    }
+    public String color(String data){
+        if(data.equals("") || data.equals("NA") || data.equals("0") || data.equals("00")){
             return "#FF2222";
         }else{
             return "#247700";

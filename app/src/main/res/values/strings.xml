@@ -79,6 +79,7 @@
     <string name="refresh_data">Refresh Data</string>
     <string name="navigate">Navigate</string>
     <string name="last_updated">Last Updated :</string>
+    <string name="hrs_24">24 hrs</string>
 
     <string-array name="sort_methods">
         <item>Sort by Name </item>
