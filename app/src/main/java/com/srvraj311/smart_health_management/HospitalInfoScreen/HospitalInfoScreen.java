@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,6 +39,18 @@ public class HospitalInfoScreen extends AppCompatActivity {
     TextView name;
     TextView type;
     TextView grade;
+    TextView description;
+    TextView bed;
+    TextView icu;
+    TextView ccu;
+    TextView ventilators;
+    TextView oxygen;
+    TextView xray;
+    TextView mri;
+    TextView ecg;
+    TextView ultraSound;
+    TextView ambulance;
+
     String id;
     Hospital hospital;
     List<EmergencyCases> emergencyCasesList;
@@ -84,13 +98,68 @@ public class HospitalInfoScreen extends AppCompatActivity {
 //
 //            }
 //        });
+        // Description
+        String hdescription = "This data functionality is not yet implemented onto the database part of the application, Will soon be added";
+        description.setText(hdescription);
 
+        // ------ Availabilities Section -----//
+        // BED
+        String hbed = hospital.getVacant_bed() + " / " + hospital.getNo_of_bed();
+        bed.setText(hbed);
+        bed.setTextColor(Color.parseColor(changeColour(hospital.getVacant_bed(), hospital.getNo_of_bed())));
 
+        // ICU
+        String hicu = hospital.getVacant_icu() + " / " + hospital.getIcu();
+        icu.setText(hicu);
+        icu.setTextColor(Color.parseColor(changeColour(hospital.getVacant_icu(), hospital.getIcu())));
+
+        // CCU
+        String hccu = hospital.getVacant_ccu() + " / " + hospital.getCcu();
+        ccu.setText(hccu);
+        ccu.setTextColor(Color.parseColor(changeColour(hospital.getVacant_ccu(), hospital.getCcu())));
+
+        // Ventilator
+        String hventilator = hospital.getVacant_ventilators() + " / " + hospital.getVentilators();
+        ventilators.setText(hventilator);
+        ventilators.setTextColor(Color.parseColor(changeColour(hospital.getVacant_ventilators() , hospital.getVentilators())));
+
+        // Oxygen
+        String hoxygen = hospital.getVacant_oxygen_cylinders() + " / " + hospital.getOxygen_cylinders();
+        oxygen.setText(hoxygen);
+        oxygen.setTextColor(Color.parseColor(changeColour(hospital.getVacant_oxygen_cylinders(), hospital.getOxygen_cylinders())));
+
+        //----- Facilities -----
+        // XRay
+        String hxray = checkNull(hospital.getX_ray());
+        xray.setText(hxray);
+        xray.setTextColor(Color.parseColor(setColor(hxray)));
+
+        // MRI
+        String hmri = checkNull(hospital.getMri());
+        xray.setText(hmri);
+        xray.setTextColor(Color.parseColor(setColor(hmri)));
+
+        // ECG
+        String hecg = checkNull(hospital.getEcg());
+        xray.setText(hecg);
+        xray.setTextColor(Color.parseColor(setColor(hecg)));
+
+        // ultra Sound
+        String hultra_sound = checkNull(hospital.getUltra_sound());
+        xray.setText(hultra_sound);
+        xray.setTextColor(Color.parseColor(setColor(hultra_sound)));
+
+        // Ambulance
+        String hambulance = checkNull(hospital.getVacant_ambulance());
+        xray.setText(hambulance);
+        xray.setTextColor(Color.parseColor(setColor(hambulance)));
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        Objects.requireNonNull(getSupportActionBar()).hide();
         setContentView(R.layout.activity_hospital_info_screen);
 
         id = getIntent().getExtras().getString("id");
@@ -106,9 +175,17 @@ public class HospitalInfoScreen extends AppCompatActivity {
         name = findViewById(R.id.display_name);
         type = findViewById(R.id.display_type);
         grade = findViewById(R.id.display_grade);
-
-        // Assigning Data to Valued
-
+        description = findViewById(R.id.display_description);
+        bed = findViewById(R.id.display_bed);
+        icu = findViewById(R.id.display_icu);
+        ccu = findViewById(R.id.display_ccu);
+        ventilators = findViewById(R.id.display_ventilator);
+        oxygen = findViewById(R.id.display_oxygen);
+        xray = findViewById(R.id.display_xray);
+        mri = findViewById(R.id.display_mri);
+        ecg = findViewById(R.id.display_ecg);
+        ultraSound = findViewById(R.id.display_ultra_sound);
+        ambulance = findViewById(R.id.display_ambulance);
 
     }
 
@@ -205,5 +282,33 @@ public class HospitalInfoScreen extends AppCompatActivity {
                        .show();
            }
        });
+    }
+
+
+    public String changeColour(String num, String total){
+        int a = Integer.parseInt(num);
+        int b = Integer.parseInt(total);
+        int percent = (a / b) * 100;
+        if (percent > 75) {
+            return "#247700";
+        }else if(percent > 55){
+            return "#FF9800";
+        }else{
+            return "#FF2222";
+        }
+    }
+    public String checkNull(String data){
+        if(data.equals("") || data.equals("NA") || data.equals("0")){
+            return "NA";
+        }else{
+            return data;
+        }
+    }
+    public String setColor(String nums){
+        if(nums.equals("NA")){
+            return "#FF2222";
+        }else{
+            return "#247700";
+        }
     }
 }

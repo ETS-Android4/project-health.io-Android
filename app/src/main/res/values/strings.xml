@@ -74,6 +74,11 @@
     <string name="cancel">Cancel</string>
     <string name="retry">Retry</string>
     <string name="hospital_name">Hospital Name</string>
+    <string name="emergency_cases_reported">Emergency Cases Reported</string>
+    <string name="timings">Timing</string>
+    <string name="refresh_data">Refresh Data</string>
+    <string name="navigate">Navigate</string>
+    <string name="last_updated">Last Updated :</string>
 
     <string-array name="sort_methods">
         <item>Sort by Name </item>
