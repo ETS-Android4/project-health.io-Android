@@ -101,12 +101,12 @@
         android:id="@+id/darken_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/very_dark_gray"
+        android:background="@color/dark_gray"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:visibility="gone"
+        android:visibility="visible"
         android:translationZ="99dp"
         >
         <ProgressBar
