@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -240,6 +242,22 @@ public class HospitalScreen extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Hospital>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Error Fetching data, Check Network", Toast.LENGTH_LONG).show();
+                new AlertDialog.Builder(HospitalScreen.this)
+                        .setTitle("Network Error")
+                        .setMessage("Seems like you are not Connected to Internet, Retry")
+                        .setPositiveButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        })
+                        .setNegativeButton(R.string.retry, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                getData();
+                            }
+                        })
+                        .create();
                 t.printStackTrace();
                 stopProgressBar();
             }

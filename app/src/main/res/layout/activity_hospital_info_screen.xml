@@ -43,6 +43,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/display_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -50,7 +51,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/cabin_semibold"
-            android:text="Bokaro General Hospital"
+            android:text="@string/hospital_name"
             android:textAlignment="center"
             android:textSize="20sp"
 

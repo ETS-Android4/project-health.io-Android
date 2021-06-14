@@ -70,6 +70,10 @@
     <string name="facilities">Facilities</string>
     <string name="ultra_sound">Ultra Sound</string>
     <string name="bed">Bed</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="retry">Retry</string>
+    <string name="hospital_name">Hospital Name</string>
 
     <string-array name="sort_methods">
         <item>Sort by Name </item>

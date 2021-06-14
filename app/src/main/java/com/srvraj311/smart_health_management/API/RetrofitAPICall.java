@@ -3,6 +3,7 @@ package com.srvraj311.smart_health_management.API;
 import android.media.session.MediaSession;
 
 import com.srvraj311.smart_health_management.HospitalScreen.Hospital;
+import com.srvraj311.smart_health_management.Models.EmergencyCases;
 import com.srvraj311.smart_health_management.Models.LoginRequest;
 import com.srvraj311.smart_health_management.Models.User;
 
@@ -14,6 +15,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface RetrofitAPICall {
     // Seperate the main url, http://localhost:8080/
@@ -42,4 +44,13 @@ public interface RetrofitAPICall {
 
     @POST("client/hospitals/all")
     Call <List<Hospital>> getAllHospitals(@Body HashMap<String, String> map);
+
+    @GET("hospitals/emergency/{id}")
+    Call <List<EmergencyCases>> getEmergencyCases(@Path("id") String id);
+
+    @POST("client/hospitals/id")
+    Call <Hospital> getHospitalById(@Body HashMap<String, String> map);
+
+//    @GET("json?origins={current}&destinations={hospital}&key=AIzaSyAakNhNaG19KkP5v5CEgkhlx-ISyEoxRe8")
+//    Call <String > getMatrix(@Query("current") String current, @Query("hospital") String hospital);
 }
