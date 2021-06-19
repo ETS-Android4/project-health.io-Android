@@ -23,7 +23,7 @@
         app:layout_constraintStart_toEndOf="@+id/textView3">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
+            android:id="@+id/saved_view_holder"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -31,6 +31,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                android:id="@+id/saved_display"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clickable="true"
@@ -56,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cardView"
+            app:layout_constraintStart_toEndOf="@id/saved_view_holder"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView

@@ -15,8 +15,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Config {
 
-
-    // TODO : Add a hosted text to change the text of the IP address without updating the app.
     private static String URL = "http://15.206.123.255:8080/";
 
     public static String getURL(){

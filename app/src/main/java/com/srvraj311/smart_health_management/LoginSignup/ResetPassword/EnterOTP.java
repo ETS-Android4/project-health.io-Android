@@ -117,7 +117,6 @@ public class EnterOTP extends AppCompatActivity {
                         tagline.setText(R.string.otp_verified);
                         progressBar.setVisibility(View.INVISIBLE);
 
-                        // TODO : Below Is Not Working
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

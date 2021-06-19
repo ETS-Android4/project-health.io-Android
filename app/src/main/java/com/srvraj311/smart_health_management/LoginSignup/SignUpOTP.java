@@ -123,6 +123,8 @@ public class SignUpOTP extends AppCompatActivity {
                         //Progress Bar INVISIBLE below
                         darken.setVisibility(View.INVISIBLE);
                         progressBar.setVisibility(View.INVISIBLE);
+                        String s = "OTP sent to Email-ID" + email;
+                        message.setText(s);
                         verification(email);
                     }
                 }

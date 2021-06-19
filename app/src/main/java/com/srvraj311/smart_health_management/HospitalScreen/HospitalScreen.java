@@ -122,7 +122,7 @@ public class HospitalScreen extends AppCompatActivity {
 
 
         //-------------------------------------------------------------------//
-        // Getting Data from Server , In a seperate Thread.
+        // Getting Data from Server , In a separate Thread.
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
@@ -141,12 +141,12 @@ public class HospitalScreen extends AppCompatActivity {
                 List<Hospital> searchedList = new ArrayList<>();
                 s = s.toString().toLowerCase();
                 for(Hospital hospital: hospitals){
-                    // TODO : Add hospital Description Matching Here
                     if (hospital.getName().toLowerCase().contains(s) ||
                             hospital.getAddress().toLowerCase().contains(s) ||
                             hospital.getType().toLowerCase().contains(s) ||
-                            hospital.getCity_name().toLowerCase().contains(s)){
-                        searchedList.add(hospital);
+                            hospital.getCity_name().toLowerCase().contains(s) ||
+                            hospital.getDescription().toLowerCase().contains(s)){
+                            searchedList.add(hospital);
                     }
                 }
                 // updating the sorted Array after Text change

@@ -84,16 +84,6 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
         holder.address.setText(hospital.getAddress());
 
 
-        /// Setting Up OnClick Listener
-        // TODO : Works only with Double Tap
-//        holder.box.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(holder.itemView.getContext(), HospitalInfoScreen.class);
-//                holder.itemView.getContext().startActivity(intent);
-//            }
-//        });
-
         // Hospital Timing
         String time = "";
         if(hospital.getIs_24_hr_service()){
@@ -149,6 +139,7 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
         public TextView vacant_bed;
         public TextView eta;
         public CardView box;
+        public CardView saved_box;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);

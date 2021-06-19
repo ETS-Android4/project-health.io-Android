@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -74,6 +76,7 @@ public class HospitalInfoScreen extends AppCompatActivity {
     ImageButton typeButton;
     ImageButton gradeButton;
     ImageButton directionsButton;
+    ImageButton call;
 
     String id;
     Hospital hospital;
@@ -235,6 +238,16 @@ public class HospitalInfoScreen extends AppCompatActivity {
 
         // Setting Up Emergency cases
         emergency_no.setText(String.valueOf(emergencyCasesList.size()));
+
+        // Setting up call Button : at end of screen
+        call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + hospital.getContact()));
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -285,7 +298,7 @@ public class HospitalInfoScreen extends AppCompatActivity {
         typeButton = findViewById(R.id.display_type_icon);
         gradeButton = findViewById(R.id.display_grade_icon);
         directionsButton = findViewById(R.id.display_distance_icon);
-
+        call = findViewById(R.id.call_button);
 
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
