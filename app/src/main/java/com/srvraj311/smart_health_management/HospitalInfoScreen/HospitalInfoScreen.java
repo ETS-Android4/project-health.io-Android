@@ -1,6 +1,7 @@
 package com.srvraj311.smart_health_management.HospitalInfoScreen;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -81,6 +82,9 @@ public class HospitalInfoScreen extends AppCompatActivity {
     String id;
     Hospital hospital;
     List<EmergencyCases> emergencyCasesList;
+
+    SwipeRefreshLayout swipeDown;
+
 
     private void setViews() {
 
@@ -300,12 +304,29 @@ public class HospitalInfoScreen extends AppCompatActivity {
         directionsButton = findViewById(R.id.display_distance_icon);
         call = findViewById(R.id.call_button);
 
+        swipeDown = findViewById(R.id.swipe_container);
+
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getData();
             }
         });
+        // --------------------- Swipe Refresh Layout --------------------//
+        swipeDown.setOnRefreshListener(this::getData);
+        swipeDown.setColorSchemeResources(R.color.primary,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_blue_dark);
+        swipeDown.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeDown.setRefreshing(true);
+                getData();
+                swipeDown.setRefreshing(false);
+            }
+        });
+        //------------------------------------------------------------------//
 
     }
 

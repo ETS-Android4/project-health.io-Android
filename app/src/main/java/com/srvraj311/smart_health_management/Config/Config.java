@@ -15,9 +15,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Config {
 
-    private static String URL = "http://15.206.123.255:8080/";
+    private static String URL = "http://52.66.207.33:8080/";
 
     public static String getURL(){
+        String link = "";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://raw.githubusercontent.com/srvraj311/health.io-API/main/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -37,7 +38,7 @@ public class Config {
             @Override
             public void onFailure(Call<HashMap<String, String>> call, Throwable t) {
                 Log.e("URL GOT FROM GITHUB", "ERROR");
-                URL = "http://15.206.123.255:8080/";
+                URL = "http://52.66.207.33:8080/";
             }
         });
         return URL;
