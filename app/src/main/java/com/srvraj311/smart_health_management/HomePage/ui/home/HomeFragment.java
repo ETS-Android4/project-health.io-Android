@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,20 +15,20 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.srvraj311.smart_health_management.Clinics.ClinicsScreen;
 import com.srvraj311.smart_health_management.HospitalScreen.HospitalScreen;
 import com.srvraj311.smart_health_management.R;
 
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
-
 public class HomeFragment extends Fragment {
 
     TextView locationName;
     TextInputEditText searchBox;
     ImageButton getCurrentLocation;
-    CardView item1;
+    CardView hospitalScreenButton;
+    CardView clinicScreenButton;
 
 
     public HomeFragment(){
@@ -48,17 +46,28 @@ public class HomeFragment extends Fragment {
         locationName = view.findViewById(R.id.discover);
         searchBox = view.findViewById(R.id.search);
         getCurrentLocation = view.findViewById(R.id.search_button);
-        item1 = view.findViewById(R.id.item1);
+        hospitalScreenButton = view.findViewById(R.id.item1);
+        clinicScreenButton = view.findViewById(R.id.item2);
 
 
         // Creating Screen for Hospital Intent
-        item1.setOnClickListener(new View.OnClickListener() {
+        hospitalScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), HospitalScreen.class);
                 startActivity(intent);
             }
         });
+
+        // Creating Screen for Clinics screen Intent
+        clinicScreenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext() , ClinicsScreen.class);
+                startActivity(intent);
+            }
+        });
+
 
 
 
