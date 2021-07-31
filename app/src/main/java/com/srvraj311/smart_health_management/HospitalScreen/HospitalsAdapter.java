@@ -107,7 +107,12 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
         // Hospital Bed
         int total = Integer.parseInt(hospital.getNo_of_bed());
         int vacant = Integer.parseInt(hospital.getVacant_bed());
-        float percent = total / vacant;
+        float percent;
+        try {
+            percent = total / vacant;
+        }catch (Exception e){
+            percent = 0;
+        }
         holder.vacant_bed.setText(String.valueOf(vacant));
 
         if(percent > 0.8){

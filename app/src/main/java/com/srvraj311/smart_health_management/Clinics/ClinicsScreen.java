@@ -33,8 +33,6 @@ public class ClinicsScreen extends AppCompatActivity {
         // Hooks
         recyclerView = findViewById(R.id.clinic_recycler);
 
-
-
         // --------------------- Setting Up Recycler View ------------------//
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);

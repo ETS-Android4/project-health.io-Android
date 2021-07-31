@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Config {
 
-    private static String URL = "http://52.66.207.33:8080/";
+    private static String URL = "http://13.233.215.230:8080/";
 
     public static String getURL(){
         String link = "";
@@ -30,6 +30,7 @@ public class Config {
             @Override
             public void onResponse(Call<HashMap<String, String>> call, Response<HashMap<String, String>> response) {
                 if(response.code() == 200) {
+                    assert response.body() != null;
                     URL = response.body().get("url");
                     Log.e("URL GOT FROM GITHUB", URL);
                 }
@@ -38,7 +39,7 @@ public class Config {
             @Override
             public void onFailure(Call<HashMap<String, String>> call, Throwable t) {
                 Log.e("URL GOT FROM GITHUB", "ERROR");
-                URL = "http://52.66.207.33:8080/";
+                URL = "http://13.233.215.230:8080/";
             }
         });
         return URL;
