@@ -80,6 +80,7 @@ public class HospitalInfoScreen extends AppCompatActivity {
     ImageButton call;
 
     String id;
+    List<Hospital> hospitals;
     Hospital hospital;
     List<EmergencyCases> emergencyCasesList;
 
@@ -264,12 +265,17 @@ public class HospitalInfoScreen extends AppCompatActivity {
         id = getIntent().getExtras().getString("id");
         emergencyCasesList = new ArrayList<>();
         // Getting data from Server
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                getData();
-            }
-        });
+
+
+        // Check If Hospitals Exist in localStorage
+        if(!checkHospitalsInSharedPreferences()){
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    getData();
+                }
+            });
+        }
 
         // Hooks
         name = findViewById(R.id.display_name);
@@ -327,7 +333,37 @@ public class HospitalInfoScreen extends AppCompatActivity {
             }
         });
         //------------------------------------------------------------------//
+
+
+
     }
+
+    private boolean checkHospitalsInSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("hospital-data" , MODE_PRIVATE);
+        Gson gson = new Gson();
+        try {
+            // If hospitals already exist in the local storage then update the adapter to use that to display in recycler view
+            String json = sharedPreferences.getString("hospitals", "[]");
+            Type type = new TypeToken<List<Hospital>>() {}.getType();
+            hospitals = gson.fromJson(json, type);
+            for( Hospital hs : hospitals){
+                if(hs.getLicence_id().equals(id)){
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            hospital = hs;
+                            setViews();
+                        }
+                    });
+                }
+            }
+            return true;
+        }catch (Exception e){
+            Log.e("STATUS :" , "ERROR ENCOUNTERED IN READING DATA");
+            return false;
+        }
+    }
+
 
     private void getData() {
         // Make a web call and get data

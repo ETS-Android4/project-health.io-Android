@@ -70,7 +70,6 @@ public class HospitalScreen extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e("OnResume", "Resumed");
     }
 
     @Override
