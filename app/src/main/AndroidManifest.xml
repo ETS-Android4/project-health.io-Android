@@ -22,7 +22,7 @@
         android:theme="@style/Theme.SmartHealthManagement"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".Clinics.ClinicsScreen"></activity>
+        <activity android:name=".Clinics.ClinicsScreen" />
         <activity android:name=".LoginSignup.SignUpOTP" />
         <activity android:name=".HospitalInfoScreen.HospitalInfoScreen" />
         <activity android:name=".HospitalScreen.HospitalScreen" />

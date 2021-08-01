@@ -45,6 +45,9 @@ public interface RetrofitAPICall {
     @POST("client/hospitals/all")
     Call <List<Hospital>> getAllHospitals(@Body HashMap<String, String> map);
 
+    @GET("client/hospitals/{DISTRICT_NAME}")
+    Call <List<Hospital>> getHospitalsByDistrictName(@Path("DISTRICT_NAME") String district);
+
     @GET("hospitals/emergency/{id}")
     Call <List<EmergencyCases>> getEmergencyCases(@Path("id") String id);
 

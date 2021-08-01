@@ -2,11 +2,13 @@ package com.srvraj311.smart_health_management.HospitalScreen;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,6 +34,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.srvraj311.smart_health_management.API.RetrofitAPICall;
 import com.srvraj311.smart_health_management.Config.Config;
+import com.srvraj311.smart_health_management.DataSets.DataSetsHospital;
 import com.srvraj311.smart_health_management.HospitalInfoScreen.HospitalInfoScreen;
 import com.srvraj311.smart_health_management.MainActivity;
 import com.srvraj311.smart_health_management.R;
@@ -60,6 +63,9 @@ public class HospitalScreen extends AppCompatActivity {
     ProgressBar progressBar;
     HospitalsAdapter adapter;
     SwipeRefreshLayout swipeDown;
+    RecyclerView districtSelectorRecycler;
+
+
 
     @Override
     protected void onResume() {
@@ -88,7 +94,18 @@ public class HospitalScreen extends AppCompatActivity {
         searchView = findViewById(R.id.search_hospital);
 
 
+        // Creating a District Selector Dialog
+        // ------------ Adding condition to Not show dialog when city already exists -----------//
+       if(!checkDistrictAlreadySelected()){
+           DialogFragment districtDialog = new DistrictSelectorDialog(HospitalScreen.this);
+           districtDialog.show(getSupportFragmentManager() , "District");
+       }
+
+
+       // Initialising Array for Hospital
         hospitals = new ArrayList<Hospital>();
+
+
 
         // --------------------- Swipe Refresh Layout --------------------//
         swipeDown.setOnRefreshListener(this::getData);
@@ -121,14 +138,19 @@ public class HospitalScreen extends AppCompatActivity {
         // -------------------- Setting Item Click Option of Recycler View ---------////
 
 
-        //-------------------------------------------------------------------//
-        // Getting Data from Server , In a separate Thread.
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                getData();
-            }
-        });
+        // Checking Local Storage for fetched Hospitals
+        if(!checkHospitalInSharedPreferences()){
+            //-------------------------------------------------------------------//
+            // Getting Data from Server , In a separate Thread.
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    getData();
+                }
+            });
+        }
+
+
         //------------------ Changing Data On Search View ------------------//
 
         searchView.addTextChangedListener(new TextWatcher() {
@@ -176,8 +198,39 @@ public class HospitalScreen extends AppCompatActivity {
         });
     }
 
+    private boolean checkHospitalInSharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("hospital-data" , MODE_PRIVATE);
+        Gson gson = new Gson();
+        try {
+            // If hospitals already exist in the local storage then update the adapter to use that to display in recycler view
+            String json = sharedPreferences.getString("hospitals", "[]");
+            Type type = new TypeToken<List<Hospital>>() {}.getType();
+            hospitals = gson.fromJson(json, type);
+            adapter.setData(hospitals);
+            return true;
+        }catch (Exception e){
+            Log.e("STATUS : " , "ERROR ENCOUNTERED IN READING DATA");
+            return false;
+        }
+    }
 
-    private void getData() {
+    private boolean checkDistrictAlreadySelected(){
+        SharedPreferences sharedPreferences = getSharedPreferences("district-data" ,MODE_PRIVATE);
+        Gson gson = new Gson();
+        try {
+
+            String json = sharedPreferences.getString("district", "");
+            Type type = new TypeToken<HashMap<String, String>>() {
+            }.getType();
+            HashMap<String, String> data = gson.fromJson(json, type);
+            return data.containsKey("district");
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+
+    public void getData() {
 
         runOnUiThread(new Runnable() {
             @Override
@@ -189,22 +242,22 @@ public class HospitalScreen extends AppCompatActivity {
 
         // making a hashmap for user Token
         // ------------------------ Looking at Local Storage -------------------------//
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
-        String json = sharedPreferences.getString("token", "");
-        Type type = new TypeToken<HashMap<String, String>>() {
-        }.getType();
+        SharedPreferences sharedPreferences = getSharedPreferences("district-data", MODE_PRIVATE);
+        // Get District From SharedPreferences
+        String dist_json = sharedPreferences.getString("district", "{'district' : 'New Delhi'}");
         Gson gson = new Gson();
-        HashMap<String, String> data = gson.fromJson(json, type);
+        Type type = new TypeToken<HashMap<String, String>>() {}.getType();
+        HashMap<String, String > dist_data = gson.fromJson(dist_json , type);
+        String district_name = dist_data.get("district");
 
         // Making an API call
-
         Retrofit retrofit = new Retrofit.Builder()
         .baseUrl(Config.getURL())
         .addConverterFactory(GsonConverterFactory.create())
         .build();
 
         RetrofitAPICall apiCall = retrofit.create(RetrofitAPICall.class);
-        Call<List<Hospital>> call = apiCall.getAllHospitals(data);
+        Call<List<Hospital>> call = apiCall.getHospitalsByDistrictName(district_name);
 
         call.enqueue(new Callback<List<Hospital>>() {
             @Override
@@ -212,6 +265,7 @@ public class HospitalScreen extends AppCompatActivity {
                 try {
                     if(response.code() == 200){
                         stopProgressBar();
+                        saveDataToSharedPreferences(response.body());
                         hospitals = response.body();
                         adapter.setData(hospitals);
                     }
@@ -264,6 +318,16 @@ public class HospitalScreen extends AppCompatActivity {
         });
 
 
+    }
+
+    private void saveDataToSharedPreferences(List<Hospital> body) {
+        SharedPreferences sharedPreferences = getSharedPreferences("hospital-data" , MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        Gson gson = new Gson();
+        String hospitalFetchedArray = gson.toJson(body);
+        editor.putString("hospitals", hospitalFetchedArray);
+        editor.apply();
     }
 
     private void stopProgressBar() {

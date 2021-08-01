@@ -120,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                             return;
                         }
                         HashMap<String, String> userToken = response.body();
-                        saveToken(userToken, "token");
+                        saveToken(userToken);
                         message.setText(R.string.success);
                         Intent intent = new Intent(getApplicationContext(), HomeScreen.class);
                         // Progress Bar INVISIBLE below
@@ -155,13 +155,13 @@ public class LoginActivity extends AppCompatActivity {
     private boolean isEmpty(String email, String password) {
         return email.equals("") || password.equals("");
     }
-    private void saveToken(HashMap<String, String> userToken, String location){
+    private void saveToken(HashMap<String, String> userToken){
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
         String token = gson.toJson(userToken);
         editor.clear();
-        editor.putString(location, token);
+        editor.putString("token", token);
         editor.apply();
     }
 }

@@ -327,7 +327,6 @@ public class HospitalInfoScreen extends AppCompatActivity {
             }
         });
         //------------------------------------------------------------------//
-
     }
 
     private void getData() {
@@ -350,7 +349,6 @@ public class HospitalInfoScreen extends AppCompatActivity {
                             emergencyCasesList = response.body();
                         }
                     });
-
                 }else{
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
@@ -397,9 +395,8 @@ public class HospitalInfoScreen extends AppCompatActivity {
         }catch (Exception e){
             //TODO :  Write Session Expired Code Here
         }
-
         Call<Hospital> call2 = apiCall.getHospitalById(token);
-       call2.enqueue(new Callback<Hospital>() {
+        call2.enqueue(new Callback<Hospital>() {
            @Override
            public void onResponse(Call<Hospital> call, Response<Hospital> response) {
                if(response.code() == 200){
