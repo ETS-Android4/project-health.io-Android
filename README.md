@@ -4,7 +4,7 @@
 
 Currently Application is in Alpha State, Most of the Features and UI elements have started to Give a feel of the Application
 
-`ALPHA` `0.7`
+`ALPHA` `0.8`
 
 #### Server - [Here](https://github.com/srvraj311/health.io-API)
 

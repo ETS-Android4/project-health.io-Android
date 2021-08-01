@@ -14,7 +14,7 @@ public class HospitalSorter {
         return hospitals;
     }
 
-    private List<Hospital> hospitals;
+    private final List<Hospital> hospitals;
 
     public HospitalSorter(List<Hospital> hospitals){
         this.hospitals = hospitals;

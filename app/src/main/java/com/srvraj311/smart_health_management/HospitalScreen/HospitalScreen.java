@@ -56,6 +56,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HospitalScreen extends AppCompatActivity {
 
     AutoCompleteTextView sortByDropdownView;
+    AutoCompleteTextView districtUpdater;
     TextInputEditText searchView;
     RecyclerView recyclerView;
     List<Hospital> hospitals;
@@ -86,6 +87,7 @@ public class HospitalScreen extends AppCompatActivity {
 
         // Hooks-----------------------------------------------------------//
         sortByDropdownView = findViewById(R.id.sort_by_view);
+        districtUpdater = findViewById(R.id.get_location);
         recyclerView = findViewById(R.id.hospital_recycler);
         darken = findViewById(R.id.darken_frame);
         progressBar = findViewById(R.id.progressbar_hospital);
@@ -195,6 +197,29 @@ public class HospitalScreen extends AppCompatActivity {
                 }
             }
         });
+
+        // Set District From Hospital Screen
+        districtUpdater.setText(getCurrentDistrict());
+        districtUpdater.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment districtDialog = new DistrictSelectorDialog(HospitalScreen.this);
+                districtDialog.show(getSupportFragmentManager() , "District");
+            }
+        });
+
+    }
+    public void updateDistrictName(){
+        districtUpdater.setText(getCurrentDistrict());
+    }
+
+    private String getCurrentDistrict() {
+        SharedPreferences sharedPreferences = getSharedPreferences("district-data" ,MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("district", "");
+        Type type = new TypeToken<HashMap<String, String>>() {}.getType();
+        HashMap<String, String> data = gson.fromJson(json, type);
+        return data.get("district");
     }
 
     private boolean checkHospitalInSharedPreferences() {

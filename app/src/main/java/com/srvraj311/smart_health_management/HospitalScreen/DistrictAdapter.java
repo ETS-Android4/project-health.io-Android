@@ -56,6 +56,7 @@ public class DistrictAdapter extends RecyclerView.Adapter<DistrictAdapter.ViewHo
                 editor.clear();
                 editor.putString("district", districtName);
                 editor.apply();
+                hospitalScreen.updateDistrictName();
                 hospitalScreen.getData();
                 districtSelectorDialog.dismiss();
             }
