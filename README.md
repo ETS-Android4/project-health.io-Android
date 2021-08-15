@@ -42,15 +42,15 @@ The application uses following libraries for shortening creation time.
 - device-names jaredrummler
 
 ### Screenshots
-![](https://res.cloudinary.com/srvraj311/image/upload/v1628828119/Screenshot_2021-08-13-09-38-34-210_com.srvraj311.smart_health_management_eg6b7i.jpg)
-![](https://res.cloudinary.com/srvraj311/image/upload/v1628828119/Screenshot_2021-08-13-09-38-43-374_com.srvraj311.smart_health_management_x6vnrr.jpg)
-![](https://res.cloudinary.com/srvraj311/image/upload/v1628828120/Screenshot_2021-08-13-09-38-47-817_com.srvraj311.smart_health_management_ebrsfr.jpg)
-![](https://res.cloudinary.com/srvraj311/image/upload/v1628828120/Screenshot_2021-08-13-09-39-15-006_com.srvraj311.smart_health_management_kuduvq.jpg)
-![](https://res.cloudinary.com/srvraj311/image/upload/v1628828120/Screenshot_2021-08-13-09-39-36-141_com.srvraj311.smart_health_management_dwwedq.jpg)
-![](https://res.cloudinary.com/srvraj311/image/upload/v1628828120/Screenshot_2021-08-13-09-39-39-725_com.srvraj311.smart_health_management_jf8jv6.jpg)
-![](https://res.cloudinary.com/srvraj311/image/upload/v1628828120/Screenshot_2021-08-13-09-39-43-622_com.srvraj311.smart_health_management_clwo83.jpg)
-![](https://res.cloudinary.com/srvraj311/image/upload/v1628828121/Screenshot_2021-08-13-09-39-45-063_com.srvraj311.smart_health_management_sykupe.jpg)
-![](https://res.cloudinary.com/srvraj311/image/upload/v1628828121/Screenshot_2021-08-13-09-39-52-506_com.srvraj311.smart_health_management_k1lwc3.jpg)
+![](https://res.cloudinary.com/srvraj311/image/upload/v1628986650/Screenshot_2021-08-13-09-38-34-210_comsrvraj311smart_health_management_c6tzfg.jpg)
+![](https://res.cloudinary.com/srvraj311/image/upload/v1628986650/Screenshot_2021-08-13-09-38-43-374_comsrvraj311smart_health_management_wzwaoi.jpg)
+![](https://res.cloudinary.com/srvraj311/image/upload/v1628986650/Screenshot_2021-08-13-09-38-47-817_comsrvraj311smart_health_management_auxdyf.jpg)
+![](https://res.cloudinary.com/srvraj311/image/upload/v1628986650/Screenshot_2021-08-13-09-39-15-006_comsrvraj311smart_health_management_idbpws.jpg)
+![](https://res.cloudinary.com/srvraj311/image/upload/v1628986650/Screenshot_2021-08-13-09-39-36-141_comsrvraj311smart_health_management_tiob1t.jpg)
+![](https://res.cloudinary.com/srvraj311/image/upload/v1628986650/Screenshot_2021-08-13-09-39-39-725_comsrvraj311smart_health_management_x7lyro.jpg)
+![](https://res.cloudinary.com/srvraj311/image/upload/v1628986651/Screenshot_2021-08-13-09-39-45-063_comsrvraj311smart_health_management_m6sqkb.jpg)
+![](https://res.cloudinary.com/srvraj311/image/upload/v1628986650/Screenshot_2021-08-13-09-39-43-622_comsrvraj311smart_health_management_yjw110.jpg)
+![](https://res.cloudinary.com/srvraj311/image/upload/v1628986651/Screenshot_2021-08-13-09-39-52-506_comsrvraj311smart_health_management_mv5axm.jpg)
 
 ### Additional Links
 
