@@ -42,17 +42,15 @@ The application uses following libraries for shortening creation time.
 - device-names jaredrummler
 
 ### Screenshots
-![](https://res.cloudinary.com/dvmsk482x/image/upload/v1623705044/Screenshot_20210615_024038_cf87jl.png)
-![](https://res.cloudinary.com/dvmsk482x/image/upload/v1623705057/Screenshot_20210615_024049_gpy2pb.png)
-![](https://res.cloudinary.com/dvmsk482x/image/upload/v1623705072/Screenshot_20210615_024107_cyri5c.png)
-![](https://res.cloudinary.com/dvmsk482x/image/upload/v1623704869/Screenshot_20210615_023737_ukmqxt.png)
-![](https://res.cloudinary.com/dvmsk482x/image/upload/v1623704916/Screenshot_20210615_023830_xn7rdm.png)
-![](https://res.cloudinary.com/dvmsk482x/image/upload/v1623705097/Screenshot_20210615_024132_hypgwf.png)
-![](https://res.cloudinary.com/dvmsk482x/image/upload/v1623705116/Screenshot_20210615_024148_fq4tm8.png)
-![](https://res.cloudinary.com/dvmsk482x/image/upload/v1623704990/Screenshot_20210615_023941_hqkcs1.png)
-![](https://res.cloudinary.com/dvmsk482x/image/upload/v1623705006/Screenshot_20210615_024001_lhs1oz.png)
-![](https://res.cloudinary.com/dvmsk482x/image/upload/v1623705010/Screenshot_20210615_024001_dwruu1.png)
-![](https://res.cloudinary.com/dvmsk482x/image/upload/v1623705025/Screenshot_20210615_024019_czp9wh.png)
+![](https://res.cloudinary.com/srvraj311/image/upload/v1628986650/Screenshot_2021-08-13-09-38-34-210_comsrvraj311smart_health_management_c6tzfg.jpg)
+![](https://res.cloudinary.com/srvraj311/image/upload/v1628986650/Screenshot_2021-08-13-09-38-43-374_comsrvraj311smart_health_management_wzwaoi.jpg)
+![](https://res.cloudinary.com/srvraj311/image/upload/v1628986650/Screenshot_2021-08-13-09-38-47-817_comsrvraj311smart_health_management_auxdyf.jpg)
+![](https://res.cloudinary.com/srvraj311/image/upload/v1628986650/Screenshot_2021-08-13-09-39-15-006_comsrvraj311smart_health_management_idbpws.jpg)
+![](https://res.cloudinary.com/srvraj311/image/upload/v1628986650/Screenshot_2021-08-13-09-39-36-141_comsrvraj311smart_health_management_tiob1t.jpg)
+![](https://res.cloudinary.com/srvraj311/image/upload/v1628986650/Screenshot_2021-08-13-09-39-39-725_comsrvraj311smart_health_management_x7lyro.jpg)
+![](https://res.cloudinary.com/srvraj311/image/upload/v1628986651/Screenshot_2021-08-13-09-39-45-063_comsrvraj311smart_health_management_m6sqkb.jpg)
+![](https://res.cloudinary.com/srvraj311/image/upload/v1628986650/Screenshot_2021-08-13-09-39-43-622_comsrvraj311smart_health_management_yjw110.jpg)
+![](https://res.cloudinary.com/srvraj311/image/upload/v1628986651/Screenshot_2021-08-13-09-39-52-506_comsrvraj311smart_health_management_mv5axm.jpg)
 
 ### Additional Links
 
