@@ -7,9 +7,11 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -52,8 +54,8 @@ public class DistrictSelectorDialog extends DialogFragment {
                              @Nullable @org.jetbrains.annotations.Nullable ViewGroup container,
                              @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.district_selector , container);
 
+        View rootView = inflater.inflate(R.layout.district_selector , container, true);
         rv = rootView.findViewById(R.id.recycler_district);
         adapter = new DistrictAdapter(DataSetsHospital.getCity_names() , DistrictSelectorDialog.this, hospitalScreen);
         rv.setLayoutManager(new LinearLayoutManager(this.getActivity()));

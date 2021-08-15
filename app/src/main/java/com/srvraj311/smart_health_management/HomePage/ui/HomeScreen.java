@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Switch;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -21,6 +22,8 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.srvraj311.smart_health_management.Clinics.ClinicsScreen;
+import com.srvraj311.smart_health_management.HospitalScreen.HospitalScreen;
 import com.srvraj311.smart_health_management.MainActivity;
 import com.srvraj311.smart_health_management.R;
 import com.srvraj311.smart_health_management.databinding.ActivityHomeScreenBinding;
@@ -38,19 +41,12 @@ public class HomeScreen extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarHomeScreen.toolbar);
-        binding.appBarHomeScreen.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.hospital_nav, R.id.clinic_nav, R.id.laboratory_nav, R.id.medicine_outlet, R.id.ambulance_nav, R.id.police_nav)
                 .setDrawerLayout(drawer)
                 .build();
 
@@ -59,7 +55,26 @@ public class HomeScreen extends AppCompatActivity {
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        // TODO : Messed Up nav panel here.
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.hospital_nav:
+                        Intent intent = new Intent(getApplicationContext(), HospitalScreen.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.clinic_nav:
+                        Intent intent2 = new Intent(getApplicationContext(), ClinicsScreen.class);
+                        startActivity(intent2);
+                        return true;
+                }
+                return false;
+            }
+        });
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -88,6 +103,7 @@ public class HomeScreen extends AppCompatActivity {
     }
 
     private void logout() {
+        // TODO : update shared prefs here as well
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();

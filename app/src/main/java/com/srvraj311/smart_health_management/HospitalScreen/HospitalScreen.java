@@ -21,6 +21,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -100,8 +101,9 @@ public class HospitalScreen extends AppCompatActivity {
        if(!checkDistrictAlreadySelected()){
            DialogFragment districtDialog = new DistrictSelectorDialog(HospitalScreen.this);
            districtDialog.show(getSupportFragmentManager() , "District");
+           Window window = districtDialog.getDialog().getWindow();
+           window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
        }
-
 
        // Initialising Array for Hospital
         hospitals = new ArrayList<Hospital>();
@@ -214,12 +216,19 @@ public class HospitalScreen extends AppCompatActivity {
     }
 
     private String getCurrentDistrict() {
-        SharedPreferences sharedPreferences = getSharedPreferences("district-data" ,MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("district", "");
-        Type type = new TypeToken<HashMap<String, String>>() {}.getType();
-        HashMap<String, String> data = gson.fromJson(json, type);
-        return data.get("district");
+        try{
+            SharedPreferences sharedPreferences = getSharedPreferences("district-data" ,MODE_PRIVATE);
+            Gson gson = new Gson();
+            String json = sharedPreferences.getString("district", "");
+            Type type = new TypeToken<HashMap<String, String>>() {}.getType();
+            HashMap<String, String> data = gson.fromJson(json, type);
+            return data.get("district");
+        }
+        catch (Exception e){
+            return "Select a District Here";
+
+        }
+
     }
 
     private boolean checkHospitalInSharedPreferences() {

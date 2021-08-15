@@ -6,12 +6,42 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
+            android:icon="@drawable/ic_discover"
+            android:title="@string/discover" />
+        <item
+            android:id="@+id/hospital_nav"
+            android:icon="@drawable/ic_baseline_hotel_24"
+            android:title="Hospitals"
+            />
+        <item
+            android:id="@+id/clinic_nav"
+            android:icon="@drawable/ic_baseline_local_hospital_24"
+            android:title="Clinics"
+            />
+        <item
+            android:id="@+id/laboratory_nav"
+            android:icon="@drawable/ic_baseline_enhanced_encryption_24"
+            android:title="Laboratory"
+        />
+        <item
+            android:id="@+id/medicine_outlet"
+            android:icon="@drawable/ic_baseline_medical_services_24"
+            android:title="Medicine Outlet"
+        />
+        <item
+            android:id="@+id/ambulance_nav"
+            android:icon="@drawable/ic_ambulance"
+            android:title="Ambulance"
+        />
+        <item
+            android:id="@+id/police_nav"
+            android:icon="@drawable/ic_baseline_local_police_24"
+            android:title="Police"
+        />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:icon="@drawable/ic_baseline_settings_24"
+            android:title="@string/action_settings" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
