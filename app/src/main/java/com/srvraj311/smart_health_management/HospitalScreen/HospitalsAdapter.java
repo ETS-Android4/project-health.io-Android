@@ -70,10 +70,16 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
         Hospital hospital = hospitals.get(position);
         // Name of Hospital
         String name = hospital.getName();
-        if(name.length() > 40){
-            name = name.substring(0,40);
+        String out = "";
+        if(name.split(",")[1].equals("null")){
+            out = name.split(",")[0];
+        }else{
+            out = name;
         }
-        holder.title.setText(name);
+        if(out.length() > 40){
+            out = out.substring(0,40);
+        }
+        holder.title.setText(out);
 
         // Type
         String type = hospital.getType();
@@ -81,8 +87,27 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
         holder.hospital_type.setText(type);
 
         //Address
-        holder.address.setText(hospital.getAddress());
-
+        // TODO : Move these filters to server as well
+        try {
+            String addrFinal = "";
+            String addr = hospital.getAddress();
+            String[] addrs = addr.split(",");
+            for (int i = 0; i < addrs.length - 1; i++) {
+                if (!addrs[i].equals("null")) {
+                    addrFinal += addrs[i] + ",";
+                }
+            }
+            System.out.println(addrFinal);
+            if(!addrs[addrs.length - 1].equals("null")) {
+                int pin = (int) Float.parseFloat(addrs[addrs.length - 1]);
+                addrFinal += String.valueOf(pin);
+            }
+            holder.address.setText(addrFinal);
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.e("LOG", e.getMessage());
+            holder.address.setText(hospital.getAddress());
+        }
 
         // Hospital Timing
         String time = "";

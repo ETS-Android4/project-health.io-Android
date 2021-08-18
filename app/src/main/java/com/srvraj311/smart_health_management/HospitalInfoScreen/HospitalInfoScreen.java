@@ -91,7 +91,15 @@ public class HospitalInfoScreen extends AppCompatActivity {
 
         // Setting Name and City
         String hname = hospital.getName() + ", " + hospital.getCity_name() +  ", " + hospital.getState_name();
-        name.setText(hname);
+        String out = "";
+        if(hname.split(",")[1].equals("null")){
+            out = hname.split(",")[0];
+        }else{
+            out = hname;
+        }
+
+
+        name.setText(out);
 
         // Setting Type
         String htype = hospital.getType();
@@ -115,7 +123,27 @@ public class HospitalInfoScreen extends AppCompatActivity {
         }
 
         // Setting up Address
-        address.setText(hospital.getAddress());
+        try {
+            String addrFinal = "";
+            String addr = hospital.getAddress();
+            String[] addrs = addr.split(",");
+            for (int i = 0; i < addrs.length - 1; i++) {
+                if (!addrs[i].equals("null")) {
+                    addrFinal += addrs[i] + ",";
+                }
+            }
+            System.out.println(addrFinal);
+            if(!addrs[addrs.length - 1].equals("null")) {
+                int pin = (int) Float.parseFloat(addrs[addrs.length - 1]);
+                addrFinal += String.valueOf(pin);
+            }
+            address.setText(addrFinal);
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.e("LOG", e.getMessage());
+            address.setText(hospital.getAddress());
+        }
+
 
         // TODO : Add distance here
 //        String geoCord = hospital.getGeolocation().trim();
