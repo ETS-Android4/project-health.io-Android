@@ -2,7 +2,10 @@ package com.srvraj311.smart_health_management.HospitalScreen;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -37,15 +40,23 @@ import java.util.zip.Inflater;
 public class DistrictSelectorDialog extends DialogFragment {
 
     HospitalScreen hospitalScreen;
+    Context context;
 
-    public DistrictSelectorDialog(HospitalScreen hospitalScreen){
+    public DistrictSelectorDialog(HospitalScreen hospitalScreen, Context context){
         this.hospitalScreen = hospitalScreen;
+        this.context = context;
     }
 
     RecyclerView rv;
     Button cancel;
     TextInputEditText searchText;
     DistrictAdapter adapter;
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+    }
 
     @Nullable
     @org.jetbrains.annotations.Nullable
@@ -55,10 +66,13 @@ public class DistrictSelectorDialog extends DialogFragment {
                              @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
 
 
-        View rootView = inflater.inflate(R.layout.district_selector , container, true);
+        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        setStyle(DialogFragment.STYLE_NO_FRAME, android.R.style.Theme);
+        View rootView = inflater.inflate(R.layout.district_selector , container);
         rv = rootView.findViewById(R.id.recycler_district);
         adapter = new DistrictAdapter(DataSetsHospital.getCity_names() , DistrictSelectorDialog.this, hospitalScreen);
-        rv.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        rv.setLayoutManager(new LinearLayoutManager(context));
         rv.setAdapter(adapter);
 
 

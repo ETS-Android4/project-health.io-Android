@@ -12,6 +12,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -99,10 +100,8 @@ public class HospitalScreen extends AppCompatActivity {
         // Creating a District Selector Dialog
         // ------------ Adding condition to Not show dialog when city already exists -----------//
        if(!checkDistrictAlreadySelected()){
-           DialogFragment districtDialog = new DistrictSelectorDialog(HospitalScreen.this);
-           districtDialog.show(getSupportFragmentManager() , "District");
-           Window window = districtDialog.getDialog().getWindow();
-           window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+           DialogFragment districtDialog = new DistrictSelectorDialog(HospitalScreen.this, getApplicationContext());
+           districtDialog.show(getSupportFragmentManager() , "DistrictDialog");
        }
 
        // Initialising Array for Hospital
@@ -121,6 +120,7 @@ public class HospitalScreen extends AppCompatActivity {
             public void onRefresh() {
                 swipeDown.setRefreshing(true);
                 getData();
+                searchView.setText("");
                 swipeDown.setRefreshing(false);
             }
         });
@@ -205,7 +205,7 @@ public class HospitalScreen extends AppCompatActivity {
         districtUpdater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment districtDialog = new DistrictSelectorDialog(HospitalScreen.this);
+                DialogFragment districtDialog = new DistrictSelectorDialog(HospitalScreen.this, getApplicationContext());
                 districtDialog.show(getSupportFragmentManager() , "District");
             }
         });
@@ -285,7 +285,7 @@ public class HospitalScreen extends AppCompatActivity {
 
         // Making an API call
         Retrofit retrofit = new Retrofit.Builder()
-        .baseUrl(Config.getURL())
+        .baseUrl(Config.getURL(getApplicationContext()))
         .addConverterFactory(GsonConverterFactory.create())
         .build();
 

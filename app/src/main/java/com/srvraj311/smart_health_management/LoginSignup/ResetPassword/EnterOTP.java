@@ -94,7 +94,7 @@ public class EnterOTP extends AppCompatActivity {
 
         // Creating a API call
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Config.getURL())
+                .baseUrl(Config.getURL(getApplicationContext()))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RetrofitAPICall apiCall = retrofit.create(RetrofitAPICall.class);
@@ -195,7 +195,7 @@ public class EnterOTP extends AppCompatActivity {
 
         // Create API Call
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Config.getURL())
+                .baseUrl(Config.getURL(getApplicationContext()))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RetrofitAPICall apiCall = retrofit.create(RetrofitAPICall.class);

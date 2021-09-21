@@ -103,5 +103,8 @@
     <string name="network_error_3">Seems like a Network Error</string>
     <string name="select_district">Select your District</string>
     <string name="select_your_district">Select Your District</string>
+    <string name="error_occurred">Error Occurred</string>
+    <string name="try_again">Try Again</string>
+    <string name="retry_message">It seems an error occurred while trying to connect to internet, Please check your internet and retry again.</string>
 
 </resources>

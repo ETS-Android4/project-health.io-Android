@@ -2,11 +2,13 @@
 <TextView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/district_holder"
-    android:layout_width="match_parent"
+    android:layout_width="240dp"
     android:layout_height="50dp"
     android:fontFamily="@font/actor"
     android:textSize="17sp"
     android:padding="15dp"
+    android:clickable="true"
+
     android:background="@drawable/rounded_corners_2"
     android:text="District Item"
-    />
+    android:focusable="true" />

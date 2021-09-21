@@ -39,7 +39,7 @@ public interface RetrofitAPICall {
     Call<HashMap<String, String>> changePw(@Body HashMap<String, String> map);
 
     // For setting Base URL for Server. Refer Config.java
-    @GET("/url.json")
+    @GET("url.json")
     Call<HashMap<String, String >> getUrl();
 
     @POST("client/hospitals/all")

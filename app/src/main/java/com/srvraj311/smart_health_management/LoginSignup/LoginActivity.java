@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
 
             // Making a request - POST
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(Config.getURL())
+                    .baseUrl(Config.getURL(getApplicationContext()))
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             RetrofitAPICall apiCall = retrofit.create(RetrofitAPICall.class);

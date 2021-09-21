@@ -97,8 +97,7 @@ public class HospitalInfoScreen extends AppCompatActivity {
         }else{
             out = hname;
         }
-
-
+        
         name.setText(out);
 
         // Setting Type
@@ -396,7 +395,7 @@ public class HospitalInfoScreen extends AppCompatActivity {
     private void getData() {
         // Make a web call and get data
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Config.getURL())
+                .baseUrl(Config.getURL(getApplicationContext()))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RetrofitAPICall apiCall = retrofit.create(RetrofitAPICall.class);

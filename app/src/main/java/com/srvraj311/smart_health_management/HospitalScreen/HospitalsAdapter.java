@@ -3,6 +3,7 @@ package com.srvraj311.smart_health_management.HospitalScreen;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Geocoder;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -97,7 +98,6 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
                     addrFinal += addrs[i] + ",";
                 }
             }
-            System.out.println(addrFinal);
             if(!addrs[addrs.length - 1].equals("null")) {
                 int pin = (int) Float.parseFloat(addrs[addrs.length - 1]);
                 addrFinal += String.valueOf(pin);
@@ -151,6 +151,7 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
         // Geolocation
         // TODO : Set Direction using API
 
+
     }
 
 
@@ -158,6 +159,7 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
     public int getItemCount() {
         return this.hospitals.size();
     }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // Define View Elements Here

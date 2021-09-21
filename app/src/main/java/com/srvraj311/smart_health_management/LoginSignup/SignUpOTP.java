@@ -101,7 +101,7 @@ public class SignUpOTP extends AppCompatActivity {
             }
         });
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Config.getURL())
+                .baseUrl(Config.getURL(getApplicationContext()))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RetrofitAPICall apiCall = retrofit.create(RetrofitAPICall.class);
@@ -160,7 +160,7 @@ public class SignUpOTP extends AppCompatActivity {
             }
         });
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Config.getURL())
+                .baseUrl(Config.getURL(getApplicationContext()))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RetrofitAPICall apiCall = retrofit.create(RetrofitAPICall.class);
@@ -200,7 +200,7 @@ public class SignUpOTP extends AppCompatActivity {
 
         // Creating a retrofit Instance
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Config.getURL())
+                .baseUrl(Config.getURL(getApplicationContext()))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         // Instancing my interface

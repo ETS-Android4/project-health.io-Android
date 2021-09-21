@@ -76,7 +76,7 @@ public class ChangePwd extends AppCompatActivity {
         HashMap<String, String> map = new HashMap<>();
         map.put("email", email);
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Config.getURL())
+                .baseUrl(Config.getURL(getApplicationContext()))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RetrofitAPICall apiCall = retrofit.create(RetrofitAPICall.class);

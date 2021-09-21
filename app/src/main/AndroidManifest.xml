@@ -22,6 +22,10 @@
         android:theme="@style/Theme.SmartHealthManagement"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity
+            android:name=".Models.ErrorScreen"
+            android:exported="true"
+            android:theme="@style/Theme.SmartHealthManagement.NoActionBar"/>
         <activity android:name=".Clinics.ClinicsScreen" />
         <activity android:name=".LoginSignup.SignUpOTP" />
         <activity android:name=".HospitalInfoScreen.HospitalInfoScreen" />

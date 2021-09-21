@@ -9,6 +9,8 @@
         <entry key="app/src/main/res/drawable/side_nav_bar.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout-v23/fragment_home.xml" value="0.36041666666666666" />
         <entry key="app/src/main/res/layout/activity_change_pwd.xml" value="0.28804347826086957" />
+        <entry key="app/src/main/res/layout/activity_enter_otp.xml" value="0.20684039087947884" />
+        <entry key="app/src/main/res/layout/activity_error_screnn.xml" value="0.20888157894736842" />
         <entry key="app/src/main/res/layout/activity_home_screen.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_hospital_screen.xml" value="0.36041666666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.28804347826086957" />
@@ -17,7 +19,7 @@
         <entry key="app/src/main/res/layout/app_bar_home_screen.xml" value="0.28804347826086957" />
         <entry key="app/src/main/res/layout/content_home_screen.xml" value="0.28804347826086957" />
         <entry key="app/src/main/res/layout/district_item.xml" value="0.28804347826086957" />
-        <entry key="app/src/main/res/layout/district_selector.xml" value="0.28804347826086957" />
+        <entry key="app/src/main/res/layout/district_selector.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.36041666666666666" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.28804347826086957" />
         <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.28804347826086957" />
