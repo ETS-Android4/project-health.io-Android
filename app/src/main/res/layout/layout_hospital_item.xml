@@ -240,7 +240,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:text="21 min"
+                    android:text="--"
                     android:textColor="@color/low"
                     android:textSize="16sp" />
             </LinearLayout>

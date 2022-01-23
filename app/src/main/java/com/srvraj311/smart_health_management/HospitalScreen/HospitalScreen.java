@@ -1,6 +1,5 @@
 package com.srvraj311.smart_health_management.HospitalScreen;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,11 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,9 +17,7 @@ import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,12 +31,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.srvraj311.smart_health_management.API.RetrofitAPICall;
 import com.srvraj311.smart_health_management.Config.Config;
-import com.srvraj311.smart_health_management.DataSets.DataSetsHospital;
 import com.srvraj311.smart_health_management.HospitalInfoScreen.HospitalInfoScreen;
 import com.srvraj311.smart_health_management.MainActivity;
 import com.srvraj311.smart_health_management.R;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -136,7 +128,7 @@ public class HospitalScreen extends AppCompatActivity {
                 intent.putExtra("id",hospital.getLicence_id());
                 startActivity(intent);
             }
-        });
+        }, HospitalScreen.this);
         recyclerView.setAdapter(adapter);
         // -------------------- Setting Item Click Option of Recycler View ---------////
 

@@ -57,6 +57,9 @@ public interface RetrofitAPICall {
     @GET("client/users/signup/sendOtp/{email}")
     Call <HashMap<String, String>> sendOtp(@Path("email") String email);
 
+    @POST("api/distance")
+    Call <HashMap<String ,String>> getETA(HashMap<String , String > requestMap);
+
 //    @GET("json?origins={current}&destinations={hospital}&key=AIzaSyAakNhNaG19KkP5v5CEgkhlx-ISyEoxRe8")
 //    Call <String > getMatrix(@Query("current") String current, @Query("hospital") String hospital);
 }
