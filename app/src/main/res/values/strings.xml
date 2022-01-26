@@ -106,5 +106,6 @@
     <string name="error_occurred">Error Occurred</string>
     <string name="try_again">Try Again</string>
     <string name="retry_message">It seems an error occurred while trying to connect to internet, Please check your internet and retry again.</string>
+    <string name="seems_network_error">Seems like a Network error, Please try after some time</string>
 
 </resources>

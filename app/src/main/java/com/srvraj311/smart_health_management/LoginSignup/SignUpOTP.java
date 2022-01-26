@@ -123,7 +123,7 @@ public class SignUpOTP extends AppCompatActivity {
                         //Progress Bar INVISIBLE below
                         darken.setVisibility(View.INVISIBLE);
                         progressBar.setVisibility(View.INVISIBLE);
-                        String s = "OTP sent to Email-ID" + email;
+                        String s = "OTP sent to Email-ID - " + email;
                         message.setText(s);
                         verification(email);
                     }
@@ -171,7 +171,13 @@ public class SignUpOTP extends AppCompatActivity {
         call.enqueue(new Callback<HashMap<String, String>>() {
             @Override
             public void onResponse(Call<HashMap<String, String>> call, Response<HashMap<String, String>> response) {
-                assert response.body() != null;
+
+                if(response.body() == null){
+                    message.setText(R.string.seems_network_error);
+                    message.setTextColor(Color.RED);
+                    progressBar.setVisibility(View.INVISIBLE);
+                    darken.setVisibility(View.INVISIBLE);
+                }
                 if(response.body().containsKey("error")){
                     message.setText(response.body().get("error"));
                     message.setTextColor(Color.RED);

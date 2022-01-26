@@ -195,6 +195,8 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
         RetrofitAPICall apiCall = retrofit.create(RetrofitAPICall.class);
         Call<HashMap<String , String >> call = apiCall.getETA(requestMap);
 
+
+
         try {
             Response<HashMap<String , String >> response = call.execute();
             assert response.body() != null;
