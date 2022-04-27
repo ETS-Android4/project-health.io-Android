@@ -119,7 +119,10 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
                 }
             }
             if (!addrs[addrs.length - 1].equals("null")) {
-                int pin = (int) Float.parseFloat(addrs[addrs.length - 1]);
+                int pin = 0;
+                try { pin = (int) Float.parseFloat(addrs[addrs.length - 1]) ;}
+                catch (Exception ignored){}
+                if(pin > 0)
                 addrFinal += String.valueOf(pin);
             }
 
