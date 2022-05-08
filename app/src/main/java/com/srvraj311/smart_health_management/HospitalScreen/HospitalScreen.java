@@ -31,6 +31,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.srvraj311.smart_health_management.API.RetrofitAPICall;
 import com.srvraj311.smart_health_management.Config.Config;
+import com.srvraj311.smart_health_management.DataSets.DataSetsHospital;
 import com.srvraj311.smart_health_management.HospitalInfoScreen.HospitalInfoScreen;
 import com.srvraj311.smart_health_management.MainActivity;
 import com.srvraj311.smart_health_management.R;
@@ -59,7 +60,6 @@ public class HospitalScreen extends AppCompatActivity {
     HospitalsAdapter adapter;
     SwipeRefreshLayout swipeDown;
     RecyclerView districtSelectorRecycler;
-
 
 
     @Override
@@ -91,14 +91,12 @@ public class HospitalScreen extends AppCompatActivity {
 
         // Creating a District Selector Dialog
         // ------------ Adding condition to Not show dialog when city already exists -----------//
-       if(!checkDistrictAlreadySelected()){
-           DialogFragment districtDialog = new DistrictSelectorDialog(HospitalScreen.this, getApplicationContext());
-           districtDialog.show(getSupportFragmentManager() , "DistrictDialog");
-       }
+        if (!checkDistrictAlreadySelected()) {
+            getDistricts();
+        }
 
-       // Initialising Array for Hospital
+        // Initialising Array for Hospital
         hospitals = new ArrayList<Hospital>();
-
 
 
         // --------------------- Swipe Refresh Layout --------------------//
@@ -125,7 +123,7 @@ public class HospitalScreen extends AppCompatActivity {
             @Override
             public void onItemClick(Hospital hospital) {
                 Intent intent = new Intent(getApplicationContext(), HospitalInfoScreen.class);
-                intent.putExtra("id",hospital.getLicence_id());
+                intent.putExtra("id", hospital.getLicence_id());
                 startActivity(intent);
             }
         }, HospitalScreen.this);
@@ -134,12 +132,13 @@ public class HospitalScreen extends AppCompatActivity {
 
 
         // Checking Local Storage for fetched Hospitals
-        if(!checkHospitalInSharedPreferences()){
+        if (!checkHospitalInSharedPreferences()) {
             //-------------------------------------------------------------------//
             // Getting Data from Server , In a separate Thread.
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
+                    getDistricts();
                     getData();
                 }
             });
@@ -157,23 +156,23 @@ public class HospitalScreen extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 List<Hospital> searchedList = new ArrayList<>();
                 s = s.toString().toLowerCase();
-                for(Hospital hospital: hospitals){
+                for (Hospital hospital : hospitals) {
                     if (hospital.getName().toLowerCase().contains(s) ||
                             hospital.getAddress().toLowerCase().contains(s) ||
                             hospital.getType().toLowerCase().contains(s) ||
                             hospital.getCity_name().toLowerCase().contains(s) ||
-                            hospital.getDescription().toLowerCase().contains(s)){
-                            searchedList.add(hospital);
+                            hospital.getDescription().toLowerCase().contains(s)) {
+                        searchedList.add(hospital);
                     }
                 }
                 // updating the sorted Array after Text change
                 adapter.setData(searchedList);
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
         });
-
 
 
         // Set Sort-By Options Array
@@ -197,26 +196,28 @@ public class HospitalScreen extends AppCompatActivity {
         districtUpdater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment districtDialog = new DistrictSelectorDialog(HospitalScreen.this, getApplicationContext());
-                districtDialog.show(getSupportFragmentManager() , "District");
+                getDistricts();
+//                DialogFragment districtDialog = new DistrictSelectorDialog(HospitalScreen.this, getApplicationContext());
+//                districtDialog.show(getSupportFragmentManager(), "District");
             }
         });
 
     }
-    public void updateDistrictName(){
+
+    public void updateDistrictName() {
         districtUpdater.setText(getCurrentDistrict());
     }
 
     private String getCurrentDistrict() {
-        try{
-            SharedPreferences sharedPreferences = getSharedPreferences("district-data" ,MODE_PRIVATE);
+        try {
+            SharedPreferences sharedPreferences = getSharedPreferences("district-data", MODE_PRIVATE);
             Gson gson = new Gson();
             String json = sharedPreferences.getString("district", "");
-            Type type = new TypeToken<HashMap<String, String>>() {}.getType();
+            Type type = new TypeToken<HashMap<String, String>>() {
+            }.getType();
             HashMap<String, String> data = gson.fromJson(json, type);
             return data.get("district");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return "Select a District Here";
 
         }
@@ -224,23 +225,24 @@ public class HospitalScreen extends AppCompatActivity {
     }
 
     private boolean checkHospitalInSharedPreferences() {
-        SharedPreferences sharedPreferences = getSharedPreferences("hospital-data" , MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("hospital-data", MODE_PRIVATE);
         Gson gson = new Gson();
         try {
             // If hospitals already exist in the local storage then update the adapter to use that to display in recycler view
             String json = sharedPreferences.getString("hospitals", "[]");
-            Type type = new TypeToken<List<Hospital>>() {}.getType();
+            Type type = new TypeToken<List<Hospital>>() {
+            }.getType();
             hospitals = gson.fromJson(json, type);
             adapter.setData(hospitals);
             return true;
-        }catch (Exception e){
-            Log.e("STATUS : " , "ERROR ENCOUNTERED IN READING DATA");
+        } catch (Exception e) {
+            Log.e("STATUS : ", "ERROR ENCOUNTERED IN READING DATA");
             return false;
         }
     }
 
-    private boolean checkDistrictAlreadySelected(){
-        SharedPreferences sharedPreferences = getSharedPreferences("district-data" ,MODE_PRIVATE);
+    private boolean checkDistrictAlreadySelected() {
+        SharedPreferences sharedPreferences = getSharedPreferences("district-data", MODE_PRIVATE);
         Gson gson = new Gson();
         try {
 
@@ -249,14 +251,58 @@ public class HospitalScreen extends AppCompatActivity {
             }.getType();
             HashMap<String, String> data = gson.fromJson(json, type);
             return data.containsKey("district");
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
 
+    public void getDistricts() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                darken.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        });
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Config.getURL(getApplicationContext()))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetrofitAPICall apiCall = retrofit.create(RetrofitAPICall.class);
+        Call<List<String>> call = apiCall.getDistricts();
+        call.enqueue(new Callback<List<String>>() {
+            @Override
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                try {
+                    if (response != null && response.code() == 200) {
+                        int n = response.body().size();
+                        String[] districts = new String[n];
+                        for (int i = 0; i < n; i++) districts[i] = response.body().get(i);
+                        DataSetsHospital.setCity_names(districts);
+                        DialogFragment districtDialog = new DistrictSelectorDialog(HospitalScreen.this, getApplicationContext());
+                        districtDialog.show(getSupportFragmentManager(), "DistrictDialog");
+                        stopProgressBar();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Error Fetching data, Check Network", Toast.LENGTH_LONG).show();
+                        stopProgressBar();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Error Fetching data, Check Network", Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                    stopProgressBar();
+                }
+            }
+            @Override
+            public void onFailure(Call<List<String>> call, Throwable t) {
+                showError(t);
+            }
+        });
+    }
+
 
     public void getData() {
-
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -269,17 +315,18 @@ public class HospitalScreen extends AppCompatActivity {
         // ------------------------ Looking at Local Storage -------------------------//
         SharedPreferences sharedPreferences = getSharedPreferences("district-data", MODE_PRIVATE);
         // Get District From SharedPreferences
-        String dist_json = sharedPreferences.getString("district", "{'district' : 'New Delhi'}");
+        String dist_json = sharedPreferences.getString("district", "{'district' : 'Bokaro'}");
         Gson gson = new Gson();
-        Type type = new TypeToken<HashMap<String, String>>() {}.getType();
-        HashMap<String, String > dist_data = gson.fromJson(dist_json , type);
+        Type type = new TypeToken<HashMap<String, String>>() {
+        }.getType();
+        HashMap<String, String> dist_data = gson.fromJson(dist_json, type);
         String district_name = dist_data.get("district");
 
         // Making an API call
         Retrofit retrofit = new Retrofit.Builder()
-        .baseUrl(Config.getURL(getApplicationContext()))
-        .addConverterFactory(GsonConverterFactory.create())
-        .build();
+                .baseUrl(Config.getURL(getApplicationContext()))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
         RetrofitAPICall apiCall = retrofit.create(RetrofitAPICall.class);
         Call<List<Hospital>> call = apiCall.getHospitalsByDistrictName(district_name);
@@ -288,29 +335,29 @@ public class HospitalScreen extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Hospital>> call, Response<List<Hospital>> response) {
                 try {
-                    if(response.code() == 200){
+                    if (response.code() == 200) {
                         stopProgressBar();
                         saveDataToSharedPreferences(response.body());
                         hospitals = response.body();
                         adapter.setData(hospitals);
                     }
-                    if(response.code() == 406){
+                    if (response.code() == 406) {
                         // Log out
                         Log.e("Error in Call", "Token Validation Failed");
                         Toast.makeText(getApplicationContext(), "Session Expired, Login Again", Toast.LENGTH_LONG).show();
                         clearUserTokenInDB();
                         stopProgressBar();
 
-                    }else if(response.code() == 500){
+                    } else if (response.code() == 500) {
                         Log.e("Error in Call", " Email Does not Exist, Session Expired");
                         Toast.makeText(getApplicationContext(), "Unauthorised to View Data", Toast.LENGTH_LONG).show();
                         clearUserTokenInDB();
                         stopProgressBar();
-                    }else{
+                    } else {
                         Log.e("Status HospitalScreen", String.valueOf(response.code()));
                         stopProgressBar();
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Error Fetching data, Check Network", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                     stopProgressBar();
@@ -320,33 +367,34 @@ public class HospitalScreen extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Hospital>> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Error Fetching data, Check Network", Toast.LENGTH_LONG).show();
-                new AlertDialog.Builder(HospitalScreen.this)
-                        .setTitle("Network Error")
-                        .setMessage("Seems like you are not Connected to Internet, Retry")
-                        .setPositiveButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                            }
-                        })
-                        .setNegativeButton(R.string.retry, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                getData();
-                            }
-                        })
-                        .create();
-                t.printStackTrace();
-                stopProgressBar();
+                showError(t);
             }
         });
-
-
+    }
+    private void showError(Throwable t){
+        Toast.makeText(getApplicationContext(), "Error Fetching data, Check Network", Toast.LENGTH_LONG).show();
+        new AlertDialog.Builder(HospitalScreen.this)
+                .setTitle("Network Error")
+                .setMessage("Seems like you are not Connected to Internet, Retry")
+                .setPositiveButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton(R.string.retry, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getData();
+                    }
+                })
+                .create();
+        t.printStackTrace();
+        stopProgressBar();
     }
 
     private void saveDataToSharedPreferences(List<Hospital> body) {
-        SharedPreferences sharedPreferences = getSharedPreferences("hospital-data" , MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("hospital-data", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         Gson gson = new Gson();

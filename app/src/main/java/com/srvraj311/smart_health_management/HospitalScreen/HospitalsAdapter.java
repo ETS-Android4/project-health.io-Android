@@ -24,6 +24,9 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.srvraj311.smart_health_management.API.RetrofitAPICall;
 import com.srvraj311.smart_health_management.Config.Config;
 import com.srvraj311.smart_health_management.R;
@@ -34,6 +37,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Executor;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,11 +45,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.ViewHolder>{
+public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.ViewHolder> {
 
     List<Hospital> hospitals;
     private final OnItemClickListener listener;
     private Context context;
+    private FusedLocationProviderClient fusedLocationClient;
 
 
     public HospitalsAdapter(List<Hospital> hospitals, OnItemClickListener listener, Context context) {
@@ -75,10 +80,14 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
         // Inflate the custom layout
         View HospitalView = inflater.inflate(R.layout.layout_hospital_item, parent, false);
 
+
         // Return a new holder instance
         return new ViewHolder(HospitalView);
     }
 
+    private void getData() {
+
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -87,12 +96,13 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
 
         // Setting Up the OnClick
         holder.bind(hospitals.get(position), listener);
-
         Hospital hospital = hospitals.get(position);
+        if (hospitals.size() == 0) return;
         // Name of Hospital
         String name = hospital.getName();
         String out = "";
-        if (name.split(",")[1].equals("null")) {
+        String[] sp = name.split(",");
+        if (sp.length > 1 && sp[1].equals("null")) {
             out = name.split(",")[0];
         } else {
             out = name;
@@ -120,10 +130,12 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
             }
             if (!addrs[addrs.length - 1].equals("null")) {
                 int pin = 0;
-                try { pin = (int) Float.parseFloat(addrs[addrs.length - 1]) ;}
-                catch (Exception ignored){}
-                if(pin > 0)
-                addrFinal += String.valueOf(pin);
+                try {
+                    pin = (int) Float.parseFloat(addrs[addrs.length - 1]);
+                } catch (Exception ignored) {
+                }
+                if (pin > 0)
+                    addrFinal += String.valueOf(pin);
             }
 
             holder.address.setText(addrFinal);
@@ -174,42 +186,69 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
 
         // Geolocation
         // TODO : Set Direction using API
+
+        // New method above
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 &&
                 ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Log.e("LOCATION", "LOCATION ACCESS NOT GIVEN");
             return;
         }
-        Log.e("Location", "Called");
-        LocationListener locationListener = new MyLocationListener(holder.eta, hospital.getGeolocation());
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
-        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
 
-        String currCord = location.getLatitude() + "," + location.getLongitude();
-        HashMap<String, String> requestMap = new HashMap<>();
-        requestMap.put("wp1",currCord);
-        requestMap.put("wp2",hospital.getGeolocation());
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(new OnSuccessListener<Location>() {
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Config.getURL(context))
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            Log.e("Location" , location.toString());
+                            // Logic to handle location object
+                            String currCord = String.valueOf(location.getLatitude()).trim() + "," + String.valueOf(location.getLongitude()).trim();
+                            HashMap<String, String> requestMap = new HashMap<>();
+                            requestMap.put("wp1", currCord);
+                            requestMap.put("wp2", hospital.getGeolocation());
+                            Log.e("WP1" , currCord.toString());
+                            Log.e("WP2", hospital.getGeolocation());
 
-        RetrofitAPICall apiCall = retrofit.create(RetrofitAPICall.class);
-        Call<HashMap<String , String >> call = apiCall.getETA(requestMap);
+                            Retrofit retrofit = new Retrofit.Builder()
+                                    .baseUrl(Config.getURL(context))
+                                    .addConverterFactory(GsonConverterFactory.create())
+                                    .build();
+                            RetrofitAPICall apiCall = retrofit.create(RetrofitAPICall.class);
+                            Call<HashMap<String, String>> call = apiCall.getETA(requestMap);
+                            try {
+                                call.enqueue(new Callback<HashMap<String, String>>() {
+                                    @Override
+                                    public void onResponse(Call<HashMap<String, String>> call, Response<HashMap<String, String>> response) {
+                                        if(response != null) {
+                                            Log.e("RES" , response.toString());
+                                            if(response.body() != null) {
+                                                String durationInSeconds = response.body().get("travelDuration");
+                                                String durationText = convertSecondsToTime(durationInSeconds);
+                                                holder.eta.setText(durationText);
+                                                Log.e("ETA-HOSPITAL", durationText);
+                                            }
+                                        }else{
+                                            Log.e("ERROR" , "Response Empty");
+                                        }
+                                    }
+                                    @Override
+                                    public void onFailure(Call<HashMap<String, String>> call, Throwable t) {
+                                        t.printStackTrace();
+                                    }
+                                });
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }
 
 
-
-        try {
-            Response<HashMap<String , String >> response = call.execute();
-            assert response.body() != null;
-            String durationInSeconds = response.body().get("travelDuration");
-            String durationText = convertSecondsToTime(durationInSeconds);
-            holder.eta.setText(durationText);
-            Log.e("ETA-HOSPITAL", durationText);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                });
     }
 
 
@@ -242,7 +281,8 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
             eta = itemView.findViewById(R.id.hospital_eta);
             box = itemView.findViewById(R.id.hospital_item_single);
         }
-        public void bind(final Hospital hospital, final OnItemClickListener listener){
+
+        public void bind(final Hospital hospital, final OnItemClickListener listener) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -255,35 +295,42 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
     private class MyLocationListener implements LocationListener {
         TextView eta;
         String hospitalCord;
+
         public MyLocationListener(TextView eta, String hospitalCord) {
             this.eta = eta;
             this.hospitalCord = hospitalCord;
             Log.e("LocationClass", "Called");
         }
+
         @Override
         public void onLocationChanged(Location loc) {
         }
-        @Override
-        public void onProviderDisabled(String provider) {}
 
         @Override
-        public void onProviderEnabled(String provider) {}
+        public void onProviderDisabled(String provider) {
+        }
 
         @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {}
+        public void onProviderEnabled(String provider) {
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+        }
     }
+
     private String convertSecondsToTime(String durationInSeconds) {
         long seconds = Long.parseLong(durationInSeconds);
         long minutes = seconds / 60;
-        if(minutes <= 60){
-            return String.valueOf(minutes) + "M";
-        }else{
+        if (minutes <= 60) {
+            return String.valueOf(minutes) + "min";
+        } else {
             long hours = minutes / 60;
-            if(hours <= 24){
-                return String.valueOf(hours) + "H";
-            }else{
+            if (hours <= 24) {
+                return String.valueOf(hours) + "hour";
+            } else {
                 long day = hours / 24;
-                return String.valueOf(day) + "D";
+                return String.valueOf(day) + "days";
             }
         }
     }
