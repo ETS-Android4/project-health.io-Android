@@ -8,13 +8,22 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.srvraj311.smart_health_management.API.RetrofitAPICall;
 import com.srvraj311.smart_health_management.Config.Config;
 import com.srvraj311.smart_health_management.R;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Objects;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -86,11 +95,40 @@ public class BookingActivity extends AppCompatActivity {
             message.setTextColor(Color.RED);
             return;
         }
+        Date date = new Date();
+        long timeStamp = date.getTime();
+        HashMap<String, String> map = new HashMap<>();
+        map.put("email", Config.getEmail(getApplicationContext()));
+        map.put("patient_name", name);
+        map.put("patient_phone", phone);
+        map.put("patient_age", age);
+        map.put("booking_timestamp", String.valueOf(timeStamp));
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Config.getURL(getApplicationContext()))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+        RetrofitAPICall apiCall = retrofit.create(RetrofitAPICall.class);
+        Call<HashMap<String, String>> call = apiCall.performBooking(licence_id, String.valueOf(POSITION),map);
+
+        call.enqueue(new Callback<HashMap<String, String>>() {
+            @Override
+            public void onResponse(Call<HashMap<String, String>> call, Response<HashMap<String, String>> response) {
+                if(response.body() != null && response.body().containsKey("status")){
+                    Toast.makeText(getApplicationContext(), response.body().get("status"), Toast.LENGTH_LONG).show();
+                    finish();
+                }else{
+                    Toast.makeText(getApplicationContext(),"There Seems to be Some error", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<HashMap<String, String>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Network Issue detected, Retry Later", Toast.LENGTH_LONG).show();
+                t.printStackTrace();
+            }
+        });
     }
 
 }

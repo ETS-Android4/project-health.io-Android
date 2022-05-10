@@ -122,4 +122,14 @@ public class Config {
         }
         return false;
     }
+
+    public static String getEmail(Context applicationContext) {
+        SharedPreferences sharedPreferences =applicationContext.getSharedPreferences("shared preference", MODE_PRIVATE);
+        Gson gson = new Gson();
+        HashMap<String, String> locMap = new HashMap<>();
+        String fromStorage = sharedPreferences.getString("token", "{}");
+        Type type = new TypeToken<HashMap<String, String>>() {}.getType();
+        locMap = gson.fromJson(fromStorage , type);
+        return locMap.get("email");
+    }
 }
