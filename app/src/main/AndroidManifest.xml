@@ -56,7 +56,8 @@
             android:name=".LoginSignup.SignupActivity"
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".LoginSignup.WelcomeScreen" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

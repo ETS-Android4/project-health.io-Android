@@ -197,8 +197,6 @@ public class HospitalScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getDistricts();
-//                DialogFragment districtDialog = new DistrictSelectorDialog(HospitalScreen.this, getApplicationContext());
-//                districtDialog.show(getSupportFragmentManager(), "District");
             }
         });
 
@@ -283,11 +281,10 @@ public class HospitalScreen extends AppCompatActivity {
                         DataSetsHospital.setCity_names(districts);
                         DialogFragment districtDialog = new DistrictSelectorDialog(HospitalScreen.this, getApplicationContext());
                         districtDialog.show(getSupportFragmentManager(), "DistrictDialog");
-                        stopProgressBar();
                     } else {
                         Toast.makeText(getApplicationContext(), "Error Fetching data, Check Network", Toast.LENGTH_LONG).show();
-                        stopProgressBar();
                     }
+                    stopProgressBar();
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Error Fetching data, Check Network", Toast.LENGTH_LONG).show();
                     e.printStackTrace();

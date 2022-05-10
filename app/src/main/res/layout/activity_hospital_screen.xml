@@ -162,21 +162,11 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/hospital_recycler"
             android:layout_width="match_parent"
+            tools:listitem="@layout/layout_hospital_item"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:layout_marginBottom="30dp"
             />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-
-
-
-
-
-
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

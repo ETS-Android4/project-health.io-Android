@@ -1,7 +1,10 @@
 package com.srvraj311.smart_health_management.HospitalScreen;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.Manifest;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Geocoder;
@@ -27,16 +30,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.srvraj311.smart_health_management.API.RetrofitAPICall;
 import com.srvraj311.smart_health_management.Config.Config;
 import com.srvraj311.smart_health_management.R;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.Executor;
 
 import retrofit2.Call;
@@ -49,8 +58,7 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
 
     List<Hospital> hospitals;
     private final OnItemClickListener listener;
-    private Context context;
-    private FusedLocationProviderClient fusedLocationClient;
+    private final Context context;
 
 
     public HospitalsAdapter(List<Hospital> hospitals, OnItemClickListener listener, Context context) {
@@ -187,7 +195,6 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
         // Geolocation
         // TODO : Set Direction using API
 
-        // New method above
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 &&
@@ -195,53 +202,66 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
             Log.e("LOCATION", "LOCATION ACCESS NOT GIVEN");
             return;
         }
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
+
+        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
 
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(new OnSuccessListener<Location>() {
-
                     @Override
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
-                            Log.e("Location" , location.toString());
+                            //Log.e("Location", location.toString());
                             // Logic to handle location object
                             String currCord = String.valueOf(location.getLatitude()).trim() + "," + String.valueOf(location.getLongitude()).trim();
-                            HashMap<String, String> requestMap = new HashMap<>();
-                            requestMap.put("wp1", currCord);
-                            requestMap.put("wp2", hospital.getGeolocation());
-                            Log.e("WP1" , currCord.toString());
-                            Log.e("WP2", hospital.getGeolocation());
+                            //
+                            Log.e("LOCATION-STORAGE", "Checking localstorage for Location");
+                            if (locationAlreadyInSharedPref(currCord)) {
+                                Log.e("LOCATION-STORAGE", "Location found in localStorage");
+                                setLocationToView(currCord, hospital.getLicence_id(), holder.eta);
+                            } else {
+                                //
+                                HashMap<String, String> requestMap = new HashMap<>();
+                                requestMap.put("wp1", currCord);
+                                requestMap.put("wp2", hospital.getGeolocation());
+                                //Log.e("WP1", currCord.toString());
+                                //Log.e("WP2", hospital.getGeolocation());
 
-                            Retrofit retrofit = new Retrofit.Builder()
-                                    .baseUrl(Config.getURL(context))
-                                    .addConverterFactory(GsonConverterFactory.create())
-                                    .build();
-                            RetrofitAPICall apiCall = retrofit.create(RetrofitAPICall.class);
-                            Call<HashMap<String, String>> call = apiCall.getETA(requestMap);
-                            try {
-                                call.enqueue(new Callback<HashMap<String, String>>() {
-                                    @Override
-                                    public void onResponse(Call<HashMap<String, String>> call, Response<HashMap<String, String>> response) {
-                                        if(response != null) {
-                                            Log.e("RES" , response.toString());
-                                            if(response.body() != null) {
-                                                String durationInSeconds = response.body().get("travelDuration");
-                                                String durationText = convertSecondsToTime(durationInSeconds);
-                                                holder.eta.setText(durationText);
-                                                Log.e("ETA-HOSPITAL", durationText);
+                                Retrofit retrofit = new Retrofit.Builder()
+                                        .baseUrl(Config.getURL(context))
+                                        .addConverterFactory(GsonConverterFactory.create())
+                                        .build();
+                                RetrofitAPICall apiCall = retrofit.create(RetrofitAPICall.class);
+                                Call<HashMap<String, String>> call = apiCall.getETA(requestMap);
+                                try {
+                                    call.enqueue(new Callback<HashMap<String, String>>() {
+                                        @Override
+                                        public void onResponse(Call<HashMap<String, String>> call, Response<HashMap<String, String>> response) {
+                                            if (response != null) {
+                                                //Log.e("RES", response.toString());
+                                                if (response.body() != null) {
+                                                    String durationInSeconds = response.body().get("travelDuration");
+                                                    String durationText = convertSecondsToTime(durationInSeconds);
+                                                    // Set data to sharedPref
+                                                    Log.e("LOCATION-STORAGE", "Getting locationn from request");
+                                                    saveLocationDataToSharedPref(currCord, hospital.getLicence_id(), durationText);
+
+                                                    holder.eta.setText(durationText);
+                                                    //Log.e("ETA-HOSPITAL", durationText);
+                                                }
+                                            } else {
+                                                Log.e("ERROR", "Response Empty");
                                             }
-                                        }else{
-                                            Log.e("ERROR" , "Response Empty");
                                         }
-                                    }
-                                    @Override
-                                    public void onFailure(Call<HashMap<String, String>> call, Throwable t) {
-                                        t.printStackTrace();
-                                    }
-                                });
-                            } catch (Exception e) {
-                                e.printStackTrace();
+
+                                        @Override
+                                        public void onFailure(Call<HashMap<String, String>> call, Throwable t) {
+                                            t.printStackTrace();
+                                        }
+                                    });
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
 
@@ -249,6 +269,52 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
 
 
                 });
+    }
+
+    private void saveLocationDataToSharedPref(String currCord, String licence_id, String durationText) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("location-data", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        HashMap<String, String> locMap = new HashMap<>();
+        String fromStorage = sharedPreferences.getString(currCord, "{}");
+        Type type = new TypeToken<HashMap<String, String>>() {
+        }.getType();
+        locMap = gson.fromJson(fromStorage, type);
+        locMap.put(licence_id, durationText);
+        String locationPerHospital = gson.toJson(locMap);
+        editor.putString(currCord, locationPerHospital);
+        editor.apply();
+        Log.e("LOCATION-STORAGE", "Writing location data to storage");
+    }
+
+    private void setLocationToView(String currCords, String licence_id, TextView eta) {
+        try {
+            SharedPreferences sharedPreferences = context.getSharedPreferences("location-data", MODE_PRIVATE);
+            Gson gson = new Gson();
+            HashMap<String, String> locMap = new HashMap<>();
+            String fromStorage = sharedPreferences.getString(currCords, "{}");
+            Type type = new TypeToken<HashMap<String, String>>() {
+            }.getType();
+            locMap = gson.fromJson(fromStorage, type);
+            String finalETA = locMap.get(licence_id);
+            eta.setText(finalETA);
+            Log.e("LOCATION-STORAGE", "Setting location from localStorage");
+        } catch (Exception e) {
+            e.printStackTrace();
+            eta.setText("--");
+        }
+    }
+
+    public boolean locationAlreadyInSharedPref(String currCords) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("location-data", MODE_PRIVATE);
+        if (sharedPreferences != null) {
+
+            Gson gson = new Gson();
+            String json = sharedPreferences.getString(currCords, "");
+            return !json.equals("");
+        }
+        Log.e("LOCATION-STORAGE", "Shared Pref null");
+        return false;
     }
 
 
@@ -289,33 +355,6 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
                     listener.onItemClick(hospital);
                 }
             });
-        }
-    }
-
-    private class MyLocationListener implements LocationListener {
-        TextView eta;
-        String hospitalCord;
-
-        public MyLocationListener(TextView eta, String hospitalCord) {
-            this.eta = eta;
-            this.hospitalCord = hospitalCord;
-            Log.e("LocationClass", "Called");
-        }
-
-        @Override
-        public void onLocationChanged(Location loc) {
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
         }
     }
 

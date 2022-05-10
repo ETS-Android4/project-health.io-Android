@@ -123,20 +123,20 @@ public class HospitalInfoScreen extends AppCompatActivity {
 
         // Setting up Address
         try {
-            String addrFinal = "";
+            StringBuilder addrFinal = new StringBuilder();
             String addr = hospital.getAddress();
             String[] addrs = addr.split(",");
             for (int i = 0; i < addrs.length - 1; i++) {
                 if (!addrs[i].equals("null")) {
-                    addrFinal += addrs[i] + ",";
+                    addrFinal.append(addrs[i]).append(",");
                 }
             }
             System.out.println(addrFinal);
             if(!addrs[addrs.length - 1].equals("null")) {
                 int pin = (int) Float.parseFloat(addrs[addrs.length - 1]);
-                addrFinal += String.valueOf(pin);
+                addrFinal.append(String.valueOf(pin));
             }
-            address.setText(addrFinal);
+            address.setText(addrFinal.toString());
         }catch (Exception e){
             e.printStackTrace();
             Log.e("LOG", e.getMessage());
@@ -165,8 +165,8 @@ public class HospitalInfoScreen extends AppCompatActivity {
 //            }
 //        });
         // Description
-        String hdescription = hospital.getDescription();
-        description.setText(hdescription);
+        String hospitalDescription = hospital.getDescription();
+        description.setText(hospitalDescription);
 
 
         // ------ Availabilities Section -----//
