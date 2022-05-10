@@ -111,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<HashMap<String, String>> call, Response<HashMap<String, String>> response) {
                     try {
-                        if (response.body().containsKey("error")) {
+                        if (response.body() != null && response.body().containsKey("error")) {
                             message.setText(response.body().get("error"));
                             message.setTextColor(Color.RED);
                             // Progress Bar INVISIBLE below

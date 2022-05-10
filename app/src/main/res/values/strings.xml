@@ -107,5 +107,13 @@
     <string name="try_again">Try Again</string>
     <string name="retry_message">It seems an error occurred while trying to connect to internet, Please check your internet and retry again.</string>
     <string name="seems_network_error">Seems like a Network error, Please try after some time</string>
+    <string name="dash">--</string>
+    <string name="book">Book Bed</string>
+    <string name="select_what_you_want_to_book">Select what you want to book</string>
+    <string name="name_of_patient">Name of Patient</string>
+    <string name="age_patient">Age of Patient</string>
+    <string name="phone_number_working">Phone Number (Working)</string>
+    <string name="book_a_bed">Book a Bed</string>
+    <string name="bo_ok">Book</string>
 
 </resources>

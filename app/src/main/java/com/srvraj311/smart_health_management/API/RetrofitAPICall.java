@@ -63,6 +63,8 @@ public interface RetrofitAPICall {
     @GET("client/hospitals/districts")
     Call<List<String>> getDistricts();
 
+    @GET("api/booking/availability/{licence_id}")
+    Call <HashMap<String, String>> getBookingAvailability(@Path("licence_id") String licence_id);
 //    @GET("json?origins={current}&destinations={hospital}&key=AIzaSyAakNhNaG19KkP5v5CEgkhlx-ISyEoxRe8")
 //    Call <String > getMatrix(@Query("current") String current, @Query("hospital") String hospital);
 }

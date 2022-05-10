@@ -24,9 +24,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".Booking.BookingActivity"
+            android:exported="false" />
+        <activity
             android:name=".Models.ErrorScreen"
             android:exported="true"
-            android:theme="@style/Theme.SmartHealthManagement.NoActionBar"/>
+            android:theme="@style/Theme.SmartHealthManagement.NoActionBar" />
         <activity android:name=".Clinics.ClinicsScreen" />
         <activity android:name=".LoginSignup.SignUpOTP" />
         <activity android:name=".HospitalInfoScreen.HospitalInfoScreen" />
@@ -56,7 +59,8 @@
             android:name=".LoginSignup.SignupActivity"
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".LoginSignup.WelcomeScreen" />
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -68,7 +68,7 @@
            app:layout_constraintTop_toBottomOf="@+id/search_box_district">
 
            <androidx.recyclerview.widget.RecyclerView
-
+                tools:listitem="@layout/district_item"
                android:id="@+id/recycler_district"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
@@ -78,13 +78,14 @@
            </androidx.recyclerview.widget.RecyclerView>
        </ScrollView>
 
-       <Button
+       <android.widget.Button
            android:layout_marginTop="10dp"
            android:id="@+id/district_cancel"
            android:layout_width="120dp"
            android:layout_height="60dp"
            android:text="@string/cancel"
-           android:backgroundTint="@color/primary"
+           android:textColor="@color/white"
+           android:background="@drawable/gradient_button_round"
            android:layout_marginBottom="20dp"
            app:layout_constraintBottom_toBottomOf="parent"
            app:layout_constraintEnd_toEndOf="parent"

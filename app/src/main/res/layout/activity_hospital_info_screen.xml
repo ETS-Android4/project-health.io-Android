@@ -207,7 +207,7 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/cabin_semibold"
-                        android:text="24 Mins"
+                        android:text="@string/dash"
                         android:textSize="16sp" />
                 </LinearLayout>
 
@@ -315,7 +315,8 @@
             app:cardElevation="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/circularRevealCardView3">
+            app:layout_constraintTop_toBottomOf="@+id/circularRevealCardView3"
+            app:layout_constraintBottom_toTopOf="@id/book">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -518,7 +519,21 @@
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
-
+        <android.widget.Button
+            android:id="@+id/book"
+            android:layout_width="300dp"
+            android:layout_height="71dp"
+            android:background="@drawable/gradient_button_round"
+            android:contentDescription="@string/login"
+            android:text="@string/book"
+            android:textSize="8pt"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/circularRevealCardView4"
+            app:layout_constraintBottom_toTopOf="@id/circularRevealCardView5"
+            />
         <!--                Facilities Section-->
         <com.google.android.material.circularreveal.cardview.CircularRevealCardView
             android:id="@+id/circularRevealCardView5"
@@ -532,7 +547,7 @@
             app:cardElevation="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/circularRevealCardView4">
+            app:layout_constraintTop_toBottomOf="@id/book">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

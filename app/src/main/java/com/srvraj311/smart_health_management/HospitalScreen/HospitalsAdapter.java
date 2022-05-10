@@ -29,11 +29,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.srvraj311.smart_health_management.API.RetrofitAPICall;
 import com.srvraj311.smart_health_management.Config.Config;
+import com.srvraj311.smart_health_management.HospitalInfoScreen.HospitalInfoScreen;
 import com.srvraj311.smart_health_management.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -194,8 +196,6 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
 
         // Geolocation
         // TODO : Set Direction using API
-
-        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 &&
                 ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -215,18 +215,14 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
                             // Logic to handle location object
                             String currCord = String.valueOf(location.getLatitude()).trim() + "," + String.valueOf(location.getLongitude()).trim();
                             //
-                            Log.e("LOCATION-STORAGE", "Checking localstorage for Location");
-                            if (locationAlreadyInSharedPref(currCord)) {
-                                Log.e("LOCATION-STORAGE", "Location found in localStorage");
+                            Log.e("LOC-INFO-SCREEN", "Checking localstorage for Location");
+                            if (Config.locationAlreadyInSharedPref(context, currCord, hospital.getLicence_id())) {
+                                Log.e("LOC-INFO-SCREEN", "Location found in localStorage");
                                 setLocationToView(currCord, hospital.getLicence_id(), holder.eta);
                             } else {
-                                //
                                 HashMap<String, String> requestMap = new HashMap<>();
                                 requestMap.put("wp1", currCord);
                                 requestMap.put("wp2", hospital.getGeolocation());
-                                //Log.e("WP1", currCord.toString());
-                                //Log.e("WP2", hospital.getGeolocation());
-
                                 Retrofit retrofit = new Retrofit.Builder()
                                         .baseUrl(Config.getURL(context))
                                         .addConverterFactory(GsonConverterFactory.create())
@@ -241,13 +237,11 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
                                                 //Log.e("RES", response.toString());
                                                 if (response.body() != null) {
                                                     String durationInSeconds = response.body().get("travelDuration");
-                                                    String durationText = convertSecondsToTime(durationInSeconds);
+                                                    String durationText = Config.convertSecondsToTime(durationInSeconds);
                                                     // Set data to sharedPref
-                                                    Log.e("LOCATION-STORAGE", "Getting locationn from request");
-                                                    saveLocationDataToSharedPref(currCord, hospital.getLicence_id(), durationText);
-
+                                                    Log.e("LOC-INFO-SCREEN", "Getting locationn from request");
+                                                    Config.saveLocationDataToSharedPref(context, currCord, hospital.getLicence_id(), durationText);
                                                     holder.eta.setText(durationText);
-                                                    //Log.e("ETA-HOSPITAL", durationText);
                                                 }
                                             } else {
                                                 Log.e("ERROR", "Response Empty");
@@ -256,6 +250,7 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
 
                                         @Override
                                         public void onFailure(Call<HashMap<String, String>> call, Throwable t) {
+
                                             t.printStackTrace();
                                         }
                                     });
@@ -268,24 +263,15 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
                     }
 
 
-                });
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e("LOCATION", e.getMessage());
+            }
+        });
     }
 
-    private void saveLocationDataToSharedPref(String currCord, String licence_id, String durationText) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("location-data", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        HashMap<String, String> locMap = new HashMap<>();
-        String fromStorage = sharedPreferences.getString(currCord, "{}");
-        Type type = new TypeToken<HashMap<String, String>>() {
-        }.getType();
-        locMap = gson.fromJson(fromStorage, type);
-        locMap.put(licence_id, durationText);
-        String locationPerHospital = gson.toJson(locMap);
-        editor.putString(currCord, locationPerHospital);
-        editor.apply();
-        Log.e("LOCATION-STORAGE", "Writing location data to storage");
-    }
+
 
     private void setLocationToView(String currCords, String licence_id, TextView eta) {
         try {
@@ -298,24 +284,13 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
             locMap = gson.fromJson(fromStorage, type);
             String finalETA = locMap.get(licence_id);
             eta.setText(finalETA);
-            Log.e("LOCATION-STORAGE", "Setting location from localStorage");
+            Log.e("LOC-INFO-SCREEN", "Setting location from localStorage");
         } catch (Exception e) {
             e.printStackTrace();
             eta.setText("--");
         }
     }
 
-    public boolean locationAlreadyInSharedPref(String currCords) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("location-data", MODE_PRIVATE);
-        if (sharedPreferences != null) {
-
-            Gson gson = new Gson();
-            String json = sharedPreferences.getString(currCords, "");
-            return !json.equals("");
-        }
-        Log.e("LOCATION-STORAGE", "Shared Pref null");
-        return false;
-    }
 
 
     @Override
@@ -358,20 +333,6 @@ public class HospitalsAdapter extends RecyclerView.Adapter<HospitalsAdapter.View
         }
     }
 
-    private String convertSecondsToTime(String durationInSeconds) {
-        long seconds = Long.parseLong(durationInSeconds);
-        long minutes = seconds / 60;
-        if (minutes <= 60) {
-            return String.valueOf(minutes) + "min";
-        } else {
-            long hours = minutes / 60;
-            if (hours <= 24) {
-                return String.valueOf(hours) + "hour";
-            } else {
-                long day = hours / 24;
-                return String.valueOf(day) + "days";
-            }
-        }
-    }
+
 
 }

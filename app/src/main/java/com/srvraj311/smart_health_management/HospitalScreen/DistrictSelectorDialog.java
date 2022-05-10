@@ -42,7 +42,7 @@ public class DistrictSelectorDialog extends DialogFragment {
     HospitalScreen hospitalScreen;
     Context context;
 
-    public DistrictSelectorDialog(HospitalScreen hospitalScreen, Context context){
+    public DistrictSelectorDialog(HospitalScreen hospitalScreen, Context context) {
         this.hospitalScreen = hospitalScreen;
         this.context = context;
     }
@@ -68,12 +68,11 @@ public class DistrictSelectorDialog extends DialogFragment {
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setStyle(DialogFragment.STYLE_NO_FRAME, android.R.style.Theme);
-        View rootView = inflater.inflate(R.layout.district_selector , container);
+        View rootView = inflater.inflate(R.layout.district_selector, container);
         rv = rootView.findViewById(R.id.recycler_district);
-        adapter = new DistrictAdapter(DataSetsHospital.getCity_names() , DistrictSelectorDialog.this, hospitalScreen);
+        adapter = new DistrictAdapter(DataSetsHospital.getCity_names(), DistrictSelectorDialog.this, hospitalScreen);
         rv.setLayoutManager(new LinearLayoutManager(context));
         rv.setAdapter(adapter);
-
 
 
         cancel = rootView.findViewById(R.id.district_cancel);
@@ -95,13 +94,14 @@ public class DistrictSelectorDialog extends DialogFragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String[] dists = DataSetsHospital.getCity_names();
                 ArrayList<String> arr = new ArrayList<>();
-                for(String city : dists){
-                    if(city.toLowerCase().contains(s)){
+                for (String city : dists) {
+                    if (city.toLowerCase().contains(s)) {
                         arr.add(city);
                     }
                 }
                 adapter.setData(arr.toArray(new String[0]));
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
