@@ -13,38 +13,44 @@
             android:icon="@drawable/ic_baseline_hotel_24"
             android:title="Hospitals"
             />
+<!--        <item-->
+<!--            android:id="@+id/clinic_nav"-->
+<!--            android:icon="@drawable/ic_baseline_local_hospital_24"-->
+<!--            android:title="Clinics"-->
+<!--            />-->
         <item
-            android:id="@+id/clinic_nav"
-            android:icon="@drawable/ic_baseline_local_hospital_24"
-            android:title="Clinics"
+            android:id="@+id/bookings_nav"
+            android:icon="@drawable/ic_baseline_bookmark_added_24"
+            android:title="My Bookings"
             />
-        <item
-            android:id="@+id/laboratory_nav"
-            android:icon="@drawable/ic_baseline_enhanced_encryption_24"
-            android:title="Laboratory"
-        />
-        <item
-            android:id="@+id/medicine_outlet"
-            android:icon="@drawable/ic_baseline_medical_services_24"
-            android:title="Medicine Outlet"
-        />
-        <item
-            android:id="@+id/ambulance_nav"
-            android:icon="@drawable/ic_ambulance"
-            android:title="Ambulance"
-        />
-        <item
-            android:id="@+id/police_nav"
-            android:icon="@drawable/ic_baseline_local_police_24"
-            android:title="Police"
-        />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_baseline_settings_24"
-            android:title="@string/action_settings" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+
+        <!--        <item-->
+<!--            android:id="@+id/laboratory_nav"-->
+<!--            android:icon="@drawable/ic_baseline_enhanced_encryption_24"-->
+<!--            android:title="Laboratory"-->
+<!--        />-->
+<!--        <item-->
+<!--            android:id="@+id/medicine_outlet"-->
+<!--            android:icon="@drawable/ic_baseline_medical_services_24"-->
+<!--            android:title="Medicine Outlet"-->
+<!--        />-->
+<!--        <item-->
+<!--            android:id="@+id/ambulance_nav"-->
+<!--            android:icon="@drawable/ic_ambulance"-->
+<!--            android:title="Ambulance"-->
+<!--        />-->
+<!--        <item-->
+<!--            android:id="@+id/police_nav"-->
+<!--            android:icon="@drawable/ic_baseline_local_police_24"-->
+<!--            android:title="Police"-->
+<!--        />-->
+<!--        <item-->
+<!--            android:id="@+id/nav_gallery"-->
+<!--            android:icon="@drawable/ic_baseline_settings_24"-->
+<!--            android:title="@string/action_settings" />-->
+<!--        <item-->
+<!--            android:id="@+id/nav_slideshow"-->
+<!--            android:icon="@drawable/ic_menu_slideshow"-->
+<!--            android:title="@string/menu_slideshow" />-->
     </group>
 </menu>

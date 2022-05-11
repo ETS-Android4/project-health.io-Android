@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.srvraj311.smart_health_management.Booking.BookingsScreen;
 import com.srvraj311.smart_health_management.Clinics.ClinicsScreen;
 import com.srvraj311.smart_health_management.HospitalScreen.HospitalScreen;
 import com.srvraj311.smart_health_management.R;
@@ -29,6 +30,7 @@ public class HomeFragment extends Fragment {
     ImageButton getCurrentLocation;
     CardView hospitalScreenButton;
     CardView clinicScreenButton;
+    CardView bookingScreenButton;
 
 
     public HomeFragment(){
@@ -48,6 +50,7 @@ public class HomeFragment extends Fragment {
         getCurrentLocation = view.findViewById(R.id.search_button);
         hospitalScreenButton = view.findViewById(R.id.item1);
         clinicScreenButton = view.findViewById(R.id.item2);
+        bookingScreenButton = view.findViewById(R.id.item7);
 
 
         // Creating Screen for Hospital Intent
@@ -63,7 +66,15 @@ public class HomeFragment extends Fragment {
         clinicScreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext() , ClinicsScreen.class);
+                //Intent intent = new Intent(getContext() , ClinicsScreen.class);
+                //startActivity(intent);
+            }
+        });
+
+        bookingScreenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), BookingsScreen.class);
                 startActivity(intent);
             }
         });

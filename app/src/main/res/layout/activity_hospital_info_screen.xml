@@ -25,7 +25,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp">
+        android:layout_marginBottom="30dp"
+        android:paddingBottom="30dp">
 
         <!--    Image and Hospital nem Section -->
         <com.google.android.material.circularreveal.cardview.CircularRevealCardView
@@ -521,19 +522,37 @@
         </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
         <android.widget.Button
             android:id="@+id/book"
-            android:layout_width="300dp"
-            android:layout_height="71dp"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/gradient_button_round"
             android:contentDescription="@string/login"
             android:text="@string/book"
-            android:textSize="8pt"
+            android:textSize="7pt"
+            android:elevation="20dp"
             android:textColor="@color/white"
             app:backgroundTint="@color/primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/circularRevealCardView4"
+            app:layout_constraintBottom_toTopOf="@id/book_message"
+            />
+        <TextView
+            android:id="@+id/book_message"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/book_beds_from_health_io"
+            app:layout_constraintTop_toBottomOf="@id/book"
+            android:paddingStart="20dp"
+            android:gravity="center_horizontal"
+            android:paddingEnd="20dp"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/circularRevealCardView5"
             />
+
         <!--                Facilities Section-->
         <com.google.android.material.circularreveal.cardview.CircularRevealCardView
             android:id="@+id/circularRevealCardView5"
@@ -547,7 +566,7 @@
             app:cardElevation="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/book">
+            app:layout_constraintTop_toBottomOf="@id/book_message">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

@@ -2,6 +2,7 @@ package com.srvraj311.smart_health_management.API;
 
 import android.media.session.MediaSession;
 
+import com.srvraj311.smart_health_management.Booking.BookingModel;
 import com.srvraj311.smart_health_management.HospitalScreen.Hospital;
 import com.srvraj311.smart_health_management.Models.EmergencyCases;
 import com.srvraj311.smart_health_management.Models.LoginRequest;
@@ -69,4 +70,6 @@ public interface RetrofitAPICall {
     @POST("api/booking/{licence_id}/{position}")
     Call <HashMap<String, String>> performBooking(@Path("licence_id") String licence_id, @Path("position") String position, @Body HashMap<String, String> map);
 
+    @GET("api/booking/getBookings/{email}")
+    Call <List<BookingModel>> getBookingsByEmail(@Path("email") String email);
 }

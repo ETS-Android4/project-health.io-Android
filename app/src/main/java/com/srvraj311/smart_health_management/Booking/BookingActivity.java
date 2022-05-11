@@ -1,5 +1,6 @@
 package com.srvraj311.smart_health_management.Booking;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +41,8 @@ public class BookingActivity extends AppCompatActivity {
     TextInputEditText patientName;
     TextInputEditText patientAge;
     TextInputEditText patientPhone;
+    ProgressBar progress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Removing Top Bar
@@ -64,18 +68,28 @@ public class BookingActivity extends AppCompatActivity {
         patientName = findViewById(R.id.patient_name);
         patientAge = findViewById(R.id.patient_age);
         patientPhone = findViewById(R.id.patient_phone);
+        progress = findViewById(R.id.progress_booking);
+
 
         hName.setText(hospital_name);
         message.setText(String.valueOf("Book a " + arr[POSITION] + ""));
-
+        progress.setVisibility(View.INVISIBLE);
         book.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progress.setVisibility(View.VISIBLE);
+                    }
+                });
                 bookBed();
+
             }
         });
     }
     public void bookBed(){
+        progress.setVisibility(View.VISIBLE);
         String name = patientName.getEditableText().toString();
         String age = patientAge.getEditableText().toString();
         String phone = patientPhone.getEditableText().toString();
@@ -114,19 +128,21 @@ public class BookingActivity extends AppCompatActivity {
 
         call.enqueue(new Callback<HashMap<String, String>>() {
             @Override
-            public void onResponse(Call<HashMap<String, String>> call, Response<HashMap<String, String>> response) {
+            public void onResponse(@NonNull Call<HashMap<String, String>> call, @NonNull Response<HashMap<String, String>> response) {
                 if(response.body() != null && response.body().containsKey("status")){
-                    Toast.makeText(getApplicationContext(), response.body().get("status"), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), response.body().get("status") + ", Go to Home -> Bookings for viewing bookings.", Toast.LENGTH_LONG).show();
                     finish();
                 }else{
                     Toast.makeText(getApplicationContext(),"There Seems to be Some error", Toast.LENGTH_LONG).show();
                 }
+                progress.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onFailure(Call<HashMap<String, String>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Network Issue detected, Retry Later", Toast.LENGTH_LONG).show();
                 t.printStackTrace();
+                progress.setVisibility(View.INVISIBLE);
             }
         });
     }

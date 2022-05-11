@@ -18,7 +18,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
+        android:contentDescription="@string/dash" />
     <ImageButton
         android:id="@+id/search_button"
         android:layout_width="wrap_content"
@@ -35,8 +35,8 @@
         android:translationZ="99dp"
         android:clickable="true"
         android:focusable="true"
+        android:contentDescription="@string/dash"
         android:foreground="?android:attr/selectableItemBackground"
-
         />
     <androidx.cardview.widget.CardView
         android:id="@+id/search_box"
@@ -94,29 +94,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="20dp" />
-            <!--            <androidx.cardview.widget.CardView-->
-            <!--                android:id="@+id/map"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="500dp"-->
-            <!--                app:layout_constraintTop_toTopOf="parent"-->
-            <!--                app:layout_constraintBottom_toTopOf="@id/discover"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintVertical_bias=".2"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                android:layout_margin="20dp"-->
-            <!--                app:cardCornerRadius="30dp"-->
-            <!--                app:cardElevation="10dp"-->
-            <!--                >-->
-            <!--                <com.google.android.gms.maps.MapView-->
-            <!--                    android:id="@+id/map_frag"-->
-            <!--                    android:name="com.google.android.gms.maps.SupportMapFragment"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="match_parent"-->
-            <!--                    android:clickable="true"-->
-            <!--                    tools:context=".MapsFragment"-->
-            <!--                    android:focusable="true" />-->
-            <!--            </androidx.cardview.widget.CardView>-->
-
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -173,10 +150,9 @@
                     android:layout_width="0dp"
                     android:layout_height="145dp"
                     android:layout_margin="20dp"
-                    android:background="@drawable/rounded_corners_2"
                     android:clickable="true"
                     android:focusable="true"
-                    android:foreground="?android:attr/selectableItemBackground"
+                    android:backgroundTint="#999999"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -201,7 +177,7 @@
                         android:fontFamily="@font/cabin_semibold"
                         android:gravity="bottom|center_horizontal"
                         android:padding="4dp"
-                        android:text="@string/clinics"
+                        android:text="@string/coming_soon"
                         android:textColor="@color/white" />
                 </androidx.cardview.widget.CardView>
 
@@ -211,6 +187,7 @@
                     android:layout_height="145dp"
                     android:layout_margin="20dp"
                     android:background="@drawable/rounded_corners_2"
+                    android:backgroundTint="#999999"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
@@ -237,7 +214,7 @@
                         android:fontFamily="@font/cabin_semibold"
                         android:gravity="bottom|center_horizontal"
                         android:padding="4dp"
-                        android:text="@string/laboratory"
+                        android:text="@string/coming_soon"
                         android:textColor="@color/white" />
 
                 </androidx.cardview.widget.CardView>
@@ -251,6 +228,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
+                    android:backgroundTint="#999999"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -274,7 +252,7 @@
                         android:fontFamily="@font/cabin_semibold"
                         android:gravity="bottom|center_horizontal"
                         android:padding="4dp"
-                        android:text="@string/medicine_shop"
+                        android:text="@string/coming_soon"
                         android:textColor="@color/white" />
 
                 </androidx.cardview.widget.CardView>
@@ -285,6 +263,7 @@
                     android:layout_height="145dp"
                     android:layout_margin="20dp"
                     android:background="@drawable/rounded_corners_2"
+                    android:backgroundTint="#999999"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
@@ -311,7 +290,7 @@
                         android:fontFamily="@font/cabin_semibold"
                         android:gravity="bottom|center_horizontal"
                         android:padding="4dp"
-                        android:text="@string/ambulance"
+                        android:text="@string/coming_soon"
                         android:textColor="@color/white" />
 
                 </androidx.cardview.widget.CardView>
@@ -327,6 +306,7 @@
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="10dp"
+                    android:backgroundTint="#999999"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintHorizontal_chainStyle="spread"
@@ -348,7 +328,43 @@
                         android:fontFamily="@font/cabin_semibold"
                         android:gravity="bottom|center_horizontal"
                         android:padding="4dp"
-                        android:text="@string/police"
+                        android:text="@string/coming_soon"
+                        android:textColor="@color/white" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/item7"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/rounded_corners_2"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/item5">
+
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_marginTop="10dp"
+                        android:contentDescription="@string/hospitals"
+                        android:src="@drawable/ic_baseline_bookmark_added_24" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/gradient_button"
+                        android:fontFamily="@font/cabin_semibold"
+                        android:gravity="bottom|center_horizontal"
+                        android:padding="4dp"
+                        android:text="@string/my_bookings"
                         android:textColor="@color/white" />
 
                 </androidx.cardview.widget.CardView>

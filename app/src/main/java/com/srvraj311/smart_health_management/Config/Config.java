@@ -124,12 +124,20 @@ public class Config {
     }
 
     public static String getEmail(Context applicationContext) {
-        SharedPreferences sharedPreferences =applicationContext.getSharedPreferences("shared preference", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = applicationContext.getSharedPreferences("shared preferences", MODE_PRIVATE);
         Gson gson = new Gson();
         HashMap<String, String> locMap = new HashMap<>();
         String fromStorage = sharedPreferences.getString("token", "{}");
-        Type type = new TypeToken<HashMap<String, String>>() {}.getType();
-        locMap = gson.fromJson(fromStorage , type);
+        Type type = new TypeToken<HashMap<String, String>>() {
+        }.getType();
+        locMap = gson.fromJson(fromStorage, type);
         return locMap.get("email");
     }
+
+    public static String checkForNull(String value) {
+        if(value == null) return "NA";
+        if(value.equals("0") || value.equals("00")) return "0";
+        return value;
+    }
+
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Smart-Health-Management</string>
+    <string name="app_name">Health-IO</string>
     <string name="login">Login</string>
     <string name="sign_up">Sign-Up</string>
     <string name="ic_main_login">Health.io</string>
@@ -115,5 +115,8 @@
     <string name="phone_number_working">Phone Number (Working)</string>
     <string name="book_a_bed">Book a Bed</string>
     <string name="bo_ok">Book</string>
+    <string name="my_bookings">My Bookings</string>
+    <string name="coming_soon">Coming Soon</string>
+    <string name="book_beds_from_health_io">Book Beds from Health-IO and Report within 24hr for Hassle free Service</string>
 
 </resources>

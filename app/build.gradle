@@ -18,8 +18,8 @@ android {
         applicationId "com.srvraj311.smart_health_management"
         minSdkVersion 22
         targetSdkVersion 31
-        versionCode 4
-        versionName "1.2_Production"
+        versionCode 5
+        versionName "1.3_Production"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

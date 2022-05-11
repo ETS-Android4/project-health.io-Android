@@ -24,6 +24,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".Booking.BookingsScreen"
+            android:exported="false" />
+        <activity
             android:name=".Booking.BookingActivity"
             android:exported="false" />
         <activity

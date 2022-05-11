@@ -1,0 +1,168 @@
+<com.google.android.material.circularreveal.cardview.CircularRevealCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bookings_item"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:layout_margin="10dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:background="@drawable/rounded_corners_white"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardCornerRadius="30sp"
+    app:cardElevation="5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parent_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toStartOf="@+id/name_container"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView3">
+
+        <LinearLayout
+            android:id="@+id/patient_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/patient_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="5"
+                android:fontFamily="@font/cabin_semibold"
+                android:maxWidth="200dp"
+                android:maxHeight="60dp"
+                android:text="Patient Name"
+                android:textColor="?colorOnSurface"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/patient_age"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/cabin_semibold"
+                android:maxWidth="200dp"
+                android:maxHeight="60dp"
+                android:text="22"
+                android:gravity="end"
+                android:textColor="?colorOnSurface"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/booking_status_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/patient_details">
+            <TextView
+                android:id="@+id/booking_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_weight="2"
+                android:fontFamily="@font/cabin_semibold"
+                android:gravity="start"
+                android:maxWidth="200dp"
+                android:maxHeight="60dp"
+                android:text="101"
+                android:textColor="?colorOnSurface"
+                android:textSize="20sp" />
+            <TextView
+                android:id="@+id/booking_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="30dp"
+                android:layout_weight="2"
+                android:fontFamily="@font/cabin_semibold"
+                android:gravity="end"
+                android:maxWidth="200dp"
+                android:maxHeight="60dp"
+                android:text="Failed"
+                android:textColor="#FF0000"
+                android:textSize="20sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/hospital"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/booking_status_layout">
+
+        <TextView
+            android:id="@+id/hospital_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="2"
+            android:gravity="start"
+            android:maxWidth="200dp"
+            android:maxHeight="60dp"
+            android:text="Bokaro General Hospital, Bokaro "
+            android:textColor="?colorOnSurface"
+            android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/booking_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hospital">
+
+            <TextView
+                android:id="@+id/patient_phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:layout_weight="3"
+                android:gravity="start"
+                android:maxWidth="200dp"
+                android:maxHeight="60dp"
+                android:text="9142865908"
+                android:textColor="?colorOnSurface"
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/booking_time_and_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:layout_weight="4"
+                android:gravity="end"
+                android:maxWidth="200dp"
+                android:maxHeight="60dp"
+                android:text="23-05-2022 12:15:20"
+                android:textColor="?colorOnSurface"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.circularreveal.cardview.CircularRevealCardView>

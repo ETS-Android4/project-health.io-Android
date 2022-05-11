@@ -2,7 +2,6 @@ package com.srvraj311.smart_health_management.HospitalInfoScreen;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.DialogFragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.Manifest;
@@ -31,19 +30,14 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.srvraj311.smart_health_management.API.RetrofitAPICall;
+import com.srvraj311.smart_health_management.Booking.BookingDialog;
 import com.srvraj311.smart_health_management.Config.Config;
-import com.srvraj311.smart_health_management.HospitalScreen.DistrictSelectorDialog;
 import com.srvraj311.smart_health_management.HospitalScreen.Hospital;
-import com.srvraj311.smart_health_management.HospitalScreen.HospitalScreen;
 import com.srvraj311.smart_health_management.Models.EmergencyCases;
 import com.srvraj311.smart_health_management.R;
 
 import java.lang.reflect.Type;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -53,8 +47,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static com.srvraj311.smart_health_management.R.drawable.ic_private;
 
 public class HospitalInfoScreen extends AppCompatActivity {
     TextView name;
@@ -368,7 +360,7 @@ public class HospitalInfoScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        if(Config.isAnyBedAvailable(hospital)){
+        if (Config.isAnyBedAvailable(hospital)) {
             Log.e("BOOKING", "BED AVAILABLE");
             book.setVisibility(View.VISIBLE);
             book.setOnClickListener(new View.OnClickListener() {
@@ -377,7 +369,7 @@ public class HospitalInfoScreen extends AppCompatActivity {
                     bookBed();
                 }
             });
-        }else{
+        } else {
             Log.e("BOOKING", "BED NOT AVAILABLE");
             book.setVisibility(View.INVISIBLE);
         }
@@ -474,7 +466,12 @@ public class HospitalInfoScreen extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 swipeDown.setRefreshing(true);
-                getData();
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        getData();
+                    }
+                });
                 swipeDown.setRefreshing(false);
             }
         });
@@ -484,7 +481,7 @@ public class HospitalInfoScreen extends AppCompatActivity {
     }
 
     private void bookBed() {
-        BookingDialog bookingDialog = new BookingDialog( getApplicationContext(), hospital.getLicence_id(), hospital.getName());
+        BookingDialog bookingDialog = new BookingDialog(getApplicationContext(), hospital.getLicence_id(), hospital.getName());
         bookingDialog.show(getSupportFragmentManager(), "DistrictDialog");
     }
 
@@ -584,6 +581,7 @@ public class HospitalInfoScreen extends AppCompatActivity {
             //TODO :  Write Session Expired Code Here
         }
         Call<Hospital> call2 = apiCall.getHospitalById(token);
+        Log.e("HOSPITAL DATA ", "Execution Started");
         call2.enqueue(new Callback<Hospital>() {
             @Override
             public void onResponse(Call<Hospital> call, Response<Hospital> response) {
@@ -592,9 +590,11 @@ public class HospitalInfoScreen extends AppCompatActivity {
                     Log.e("HOSPITAL DATA ", "Success");
                     setViews();
                 } else if (response.code() == 406) {
-                    //TODO Session Expired Code
+                    // TODO Session Expired Code
+                    Log.e("HOSPITAL DATA ", "Error 406");
                 } else {
                     // Some Error
+                    Log.e("HOSPITAL DATA ", "Execution Started");
                     Toast.makeText(getApplicationContext(), "Some Error Occurred While Getting Details", Toast.LENGTH_LONG).show();
                 }
             }

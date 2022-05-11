@@ -22,6 +22,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.srvraj311.smart_health_management.Booking.BookingsScreen;
 import com.srvraj311.smart_health_management.Clinics.ClinicsScreen;
 import com.srvraj311.smart_health_management.HospitalScreen.HospitalScreen;
 import com.srvraj311.smart_health_management.MainActivity;
@@ -39,14 +40,13 @@ public class HomeScreen extends AppCompatActivity {
 
         binding = ActivityHomeScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         setSupportActionBar(binding.appBarHomeScreen.toolbar);
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.hospital_nav, R.id.clinic_nav, R.id.laboratory_nav, R.id.medicine_outlet, R.id.ambulance_nav, R.id.police_nav)
+                R.id.nav_home, R.id.hospital_nav)
                 .setDrawerLayout(drawer)
                 .build();
 
@@ -59,21 +59,24 @@ public class HomeScreen extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.hospital_nav:
                         Intent intent = new Intent(getApplicationContext(), HospitalScreen.class);
                         startActivity(intent);
                         return true;
-                    case R.id.clinic_nav:
-                        Intent intent2 = new Intent(getApplicationContext(), ClinicsScreen.class);
-                        startActivity(intent2);
+//                    case R.id.clinic_nav:
+//                        Intent intent2 = new Intent(getApplicationContext(), ClinicsScreen.class);
+//                        startActivity(intent2);
+//                        return true;
+                    case R.id.bookings_nav:
+                        Intent intent1 = new Intent(getApplicationContext(), BookingsScreen.class);
+                        startActivity(intent1);
                         return true;
                 }
                 return false;
             }
         });
     }
-
 
 
     @Override
@@ -95,9 +98,9 @@ public class HomeScreen extends AppCompatActivity {
         if (item.getItemId() == R.id.action_logout) {
             logout();
             return true;
-        } else if(item.getItemId() == R.id.action_settings){
+        } else if (item.getItemId() == R.id.action_settings) {
             //Settings Here
-        return true;
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
