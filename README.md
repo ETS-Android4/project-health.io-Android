@@ -2,9 +2,11 @@
 
 ### Status
 
-Currently Application is in Alpha State, Most of the Features and UI elements have started to Give a feel of the Application
+Currently Application is in Beta State, Most of the Features and UI elements are functional and Can be used by end users.
+`PRODUCTION` `1.6_Production`
+[![](https://res.cloudinary.com/srvraj311/image/upload/v1653520071/download_k4ld1p.png)](https://play.google.com/store/apps/details?id=com.srvraj311.smart_health_management)
 
-`ALPHA` `0.8`
+#### Since 26 May 2022, No futher commits will be made as Project has been made private.
 
 #### Server - [Here](https://github.com/srvraj311/health.io-API)
 
